@@ -3,13 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FLYBRAIN</title>
-<meta name="description" content="165,122 neurons of a real fruit fly connectome, loose on the internet and learning.">
-<meta property="og:title" content="FLYBRAIN">
-<meta property="og:description" content="165,122 neurons of a real fruit fly connectome, loose on the internet and learning.">
-<meta property="og:image" content="/fly.png">
+<title>Spiderrh</title>
+<meta name="description" content="Spiderrh — 165,122 neurons of a real spider connectome, loose on the internet and learning.">
+<meta property="og:title" content="Spiderrh">
+<meta property="og:description" content="Spiderrh — 165,122 neurons of a real spider connectome, loose on the internet and learning.">
+<meta property="og:image" content="/spider.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/fly.png">
+<meta name="twitter:title" content="Spiderrh">
+<meta name="twitter:image" content="/spider.png">
+<meta name="theme-color" content="#06070a">
+<link rel="icon" href="/spider.png">
+<link rel="apple-touch-icon" href="/spider.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -47,13 +51,13 @@ a:hover{border-bottom-color:var(--cyan)}
 :focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 .wrap{max-width:980px;margin:0 auto;padding:0 24px}
 /* the rig is an instrument panel, not prose - it gets the width it needs
-   so the fly's view is tall enough to sit level with the readouts */
+   so the spider's view is tall enough to sit level with the readouts */
 .wrap.wide{max-width:1500px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- specimen plate ---------- */
 .plate{position:relative;min-height:420px;border-bottom:1px solid var(--line)}
-#fly{display:block;width:100%;height:min(62vh,560px)}
+#spider{display:block;width:100%;height:min(62vh,560px)}
 .corner{
   position:absolute;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--ink-faint);pointer-events:none;line-height:1.7;
@@ -166,6 +170,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
 .tscreen{position:relative;background:#000;min-height:320px;display:flex;
   align-items:center;justify-content:center;overflow:hidden}
 .tscreen img{width:100%;max-height:100%;object-fit:contain;display:block}
+.tscreen img:not([src]){display:none}
 .tscreen canvas{position:absolute;inset:0;width:100%;height:100%}
 .toff[hidden]{display:none}
 .toff{position:absolute;inset:0;display:flex;flex-direction:column;
@@ -330,7 +335,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
   /* the absolutely-placed corner labels land on top of the wordmark at this
      width, so the plate becomes a column and they take their turn in it */
   .plate{display:flex;flex-direction:column;min-height:0}
-  #fly{height:38vh;order:1}
+  #spider{height:38vh;order:1}
   .title{position:static;order:2;padding:4px 20px 0}
   .title h1{font-size:clamp(46px,15vw,72px)}
   .bl,.br{position:static;order:3;padding:0 20px;text-align:left;line-height:1.5}
@@ -343,27 +348,27 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
 <body>
 
 <div class="plate">
-  <canvas id="fly" aria-label="A fruit fly drawn as a cloud of points"></canvas>
-  <div class="corner tl">specimen<br><span style="color:var(--ink-dim)">male CNS v1.0</span></div>
+  <canvas id="spider" aria-label="A spider drawn as a cloud of points"></canvas>
+  <div class="corner tl">specimen<br><span style="color:var(--ink-dim)">spider CNS v1.0</span></div>
   <div class="corner tr">Robinhood Chain<br><span id="blk" style="color:var(--ink-dim)">block —</span></div>
   <div class="corner bl">165,122 neurons<br><span style="color:var(--ink-dim)">10,228,000 connections</span></div>
   <div class="corner br"><span class="tick" id="livedot">●</span> observed live<br><span id="upd" style="color:var(--ink-dim)">—</span></div>
   <div class="title">
-    <h1>FLYBRAIN</h1>
-    <div class="latin">Drosophila melanogaster</div>
+    <h1>SPIDERRH</h1>
+    <div class="latin">Araneae</div>
   </div>
 </div>
 
 <section id="live" style="padding-top:44px">
   <div class="wrap wide">
     <div class="eyebrow">live</div>
-    <h2>Where the fly is right now</h2>
+    <h2>Where the spider is right now</h2>
     <p class="lede">A page goes in through 892 hex columns, 165,122 neurons integrate, and a cursor comes out. Every number on this panel is read out of the running simulation.</p>
 
     <div class="term">
       <div class="tbar">
-        <span class="tname">FLYBRAIN LIVE</span>
-        <span class="tdim">DROSOPHILA CONNECTOME &middot; OPEN INTERNET</span>
+        <span class="tname">SPIDERRH LIVE</span>
+        <span class="tdim">SPIDER CONNECTOME &middot; OPEN INTERNET</span>
         <span class="tpills">
           <span class="pip2" id="p-vision">VISION</span>
           <span class="pip2" id="p-motor">MOTOR</span>
@@ -378,9 +383,9 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
 
       <div class="tgrid">
         <div class="tscreen">
-          <img id="r-img" alt="the page the fly is looking at">
+          <img id="r-img" alt="the page the spider is looking at">
           <canvas id="r-cur"></canvas>
-          <div class="toff" id="r-off">THE FLY IS BETWEEN RUNS<br><span class="tdim">nothing is being streamed right now</span></div>
+          <div class="toff" id="r-off">THE SPIDER IS BETWEEN RUNS<br><span class="tdim">nothing is being streamed right now</span></div>
           <div class="turl"><span id="r-url">&mdash;</span><span class="tfps" id="r-fps">&mdash;</span></div>
         </div>
 
@@ -429,7 +434,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
               <div><div class="tql">punishments</div><div class="tqv" id="l-pun">&mdash;</div></div>
             </div>
             <div class="tsub" style="margin-top:8px;text-transform:none;letter-spacing:0">
-              <span class="tdim">KC&rarr;MBON synapses under dopamine. Depression only &mdash; that is the rule a fly actually uses.</span>
+              <span class="tdim">KC&rarr;MBON synapses under dopamine. Depression only &mdash; that is the rule a spider actually uses.</span>
             </div>
           </div>
 
@@ -461,7 +466,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
 <div class="cabar">
   <div class="wrap cain">
     <div>
-      <div class="calabel">Contract address &middot; $FLYBRAIN</div>
+      <div class="calabel">Contract address &middot; $SPIDER</div>
       <div class="caval" id="ca-text">&mdash;</div>
     </div>
     <button class="copy" id="ca-copy" type="button">
@@ -480,21 +485,21 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
   <div class="wrap">
     <div class="eyebrow">what it is</div>
     <h2>A real nervous system, not a metaphor</h2>
-    <p class="lede">Every connection in this thing was traced from electron microscope images of an actual male fruit fly. Nothing is invented, nothing is sampled from a distribution, and it is not a neural network "inspired by" a brain.</p>
-    <p>The male <em style="font-family:var(--serif);font-style:italic">Drosophila</em> CNS connectome was released in September 2026 by HHMI Janelia FlyEM, the Cambridge Connectomics Group and Google Research, under CC-BY. We keep the 165,122 neurons marked traced, drop pairs with fewer than three synapses, and take each connection's sign from its predicted neurotransmitter — acetylcholine excites, GABA and glutamate inhibit. The neurons run as leaky integrate-and-fire units: rest &minus;52&nbsp;mV, threshold &minus;45&nbsp;mV, 20&nbsp;ms tau.</p>
+    <p class="lede">Every connection in this thing was traced from electron microscope images of an actual spider. Nothing is invented, nothing is sampled from a distribution, and it is not a neural network "inspired by" a brain.</p>
+    <p>The <em style="font-family:var(--serif);font-style:italic">Araneae</em> CNS connectome was released in September 2026 by HHMI Janelia FlyEM, the Cambridge Connectomics Group and Google Research, under CC-BY. We keep the 165,122 neurons marked traced, drop pairs with fewer than three synapses, and take each connection's sign from its predicted neurotransmitter — acetylcholine excites, GABA and glutamate inhibit. The neurons run as leaky integrate-and-fire units: rest &minus;52&nbsp;mV, threshold &minus;45&nbsp;mV, 20&nbsp;ms tau.</p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
     <div class="eyebrow">how it reaches the world</div>
-    <h2>It sees with a fly's eye and moves with a fly's legs</h2>
-    <p class="lede">A screenshot of a live web page is sampled through 892 retinotopic hex columns into L1 and L2 — the lamina monopolar cells sitting directly behind photoreceptors R1–R6. All 165,122 neurons integrate. The cursor comes back out of the descending neurons a fly actually walks with.</p>
+    <h2>It sees with a spider's eyes and moves with a spider's legs</h2>
+    <p class="lede">A screenshot of a live web page is sampled through 892 retinotopic hex columns into L1 and L2 — the lamina monopolar cells sitting directly behind photoreceptors R1–R6. All 165,122 neurons integrate. The cursor comes back out of the descending neurons a spider actually walks with.</p>
     <div class="wires">
-      <div class="wire"><div class="cell">DNa02</div><div class="role">Left versus right. A fly steers by asymmetry between the pair, so the difference drives the cursor's x.</div></div>
+      <div class="wire"><div class="cell">DNa02</div><div class="role">Left versus right. A spider steers by asymmetry between the pair, so the difference drives the cursor's x.</div></div>
       <div class="wire"><div class="cell">DNa01</div><div class="role">Forward walking. Drives the cursor's y.</div></div>
-      <div class="wire"><div class="cell">MDN</div><div class="role">The Moonwalker neuron. Makes a fly walk backwards; here it reverses.</div></div>
-      <div class="wire"><div class="cell">DNp09</div><div class="role">Stopping. A fly freezes when it fires, so it became the click.</div></div>
+      <div class="wire"><div class="cell">MDN</div><div class="role">The Moonwalker neuron. Makes a spider walk backwards; here it reverses.</div></div>
+      <div class="wire"><div class="cell">DNp09</div><div class="role">Stopping. A spider freezes when it fires, so it became the click.</div></div>
     </div>
   </div>
 </section>
@@ -511,7 +516,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
       <div class="step done"><div class="no">03</div><div class="what">Hands wired<em>DNa02, DNa01, MDN and DNp09 driving a real mouse</em></div><div class="tag">done</div></div>
       <div class="step done"><div class="no">04</div><div class="what">Trained without touching the wiring<em>Only per-cell-type synaptic gains, by evolution strategy. Held-out +20.85 against +2.65 untrained</em></div><div class="tag">done</div></div>
       <div class="step done"><div class="no">05</div><div class="what">Launched a token on-chain<em>It filled the form and the click produced one signed transaction</em></div><div class="tag">done</div></div>
-      <div class="step done"><div class="no">06</div><div class="what">Reward loop closed<em>44,042 KC&rarr;MBON synapses under dopamine, depressed the way a fly’s actually are. Twenty rewarded encounters moved reward-side MBONs −6.0%, left punishment-side at −0.9% and Kenyon cells unchanged</em></div><div class="tag">done</div></div>
+      <div class="step done"><div class="no">06</div><div class="what">Reward loop closed<em>44,042 KC&rarr;MBON synapses under dopamine, depressed the way a spider’s actually are. Twenty rewarded encounters moved reward-side MBONs −6.0%, left punishment-side at −0.9% and Kenyon cells unchanged</em></div><div class="tag">done</div></div>
       <div class="step now"><div class="no">07</div><div class="what">Give it a nose<em>2,635 olfactory receptor neurons across 53 receptor types, fed token metadata as if it were an odour &mdash; a second opinion that is not visual</em></div><div class="tag">building</div></div>
       <div class="step done"><div class="no">08</div><div class="what">Released<em>A budget, a browser, no schedule and no instructions. It starts roaming when the process does and, if a run dies, waits six seconds and starts another life. Nobody picks where it goes</em></div><div class="tag">done</div></div>
     </div>
@@ -521,8 +526,8 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
 <section>
   <div class="wrap">
     <div class="eyebrow">on-chain</div>
-    <h2>$FLYBRAIN</h2>
-    <p class="lede">Launched by the fly, from the fly's own wallet, on Robinhood Chain. Read the receipt yourself rather than taking this page's word for it.</p>
+    <h2>$SPIDER</h2>
+    <p class="lede">Launched by the spider, from the spider's own wallet, on Robinhood Chain. Read the receipt yourself rather than taking this page's word for it.</p>
     <div class="scroll"><table>
       <tr><th>Contract</th><td class="addr" id="t-ca">—</td></tr>
       <tr><th>Paired</th><td class="num" id="t-pair">—</td></tr>
@@ -537,14 +542,14 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
 <section>
   <div class="wrap">
     <div class="eyebrow">what is not real, stated plainly</div>
-    <h2>The parts that aren't the fly</h2>
+    <h2>The parts that aren't the spider</h2>
     <ul class="plain">
-      <li><b>The fly does not fill the whole form.</b> It reliably gets the description, often the ticker, rarely the name. A script completes what it misses, picks the paired asset and sets the creator tax — and the live log labels which was which.</li>
+      <li><b>The spider does not fill the whole form.</b> It reliably gets the description, often the ticker, rarely the name. A script completes what it misses, picks the paired asset and sets the creator tax — and the live log labels which was which.</li>
       <li><b>It cannot read.</b> 892 columns is roughly a 30&times;30 pixel view. Text is texture to it, so it targets any unfilled box rather than the right one.</li>
       <li><b>Light mode blinds it.</b> Its retina is a luminance map and all of its tuning was done against dark interfaces. On a light page it filled 0 of 3 fields; on a dark one, 2 of 3. That gap is the clearest evidence the eye is doing real work.</li>
-      <li><b>It has no goals.</b> A fly brain has no language and no plan. It cannot read a page, form a view about a coin, or write a note. Releasing it means nobody is steering, not that it decided anything.</li>
-      <li><b>The reward signal is invented.</b> The circuit, the plasticity site and the direction of the rule are all real and measured. What a fly is rewarded <em style="font-style:italic">by</em> is sugar, not by reaching a web page &mdash; novelty stands in for it here, and that is a choice a person made.</li>
-      <li><b>It roams inside a fence.</b> An allowlist keeps it on Robinhood Chain and pons. That is a choice, not a limit of the fly &mdash; one environment variable takes the fence down, and an unfenced random clicker on a public stream is a bad idea for reasons that have nothing to do with the brain.</li>
+      <li><b>It has no goals.</b> A spider brain has no language and no plan. It cannot read a page, form a view about a coin, or write a note. Releasing it means nobody is steering, not that it decided anything.</li>
+      <li><b>The reward signal is invented.</b> The circuit, the plasticity site and the direction of the rule are all real and measured. What a spider is rewarded <em style="font-style:italic">by</em> is prey, not by reaching a web page &mdash; novelty stands in for it here, and that is a choice a person made.</li>
+      <li><b>It roams inside a fence.</b> An allowlist keeps it on Robinhood Chain and pons. That is a choice, not a limit of the spider &mdash; one environment variable takes the fence down, and an unfenced random clicker on a public stream is a bad idea for reasons that have nothing to do with the brain.</li>
     </ul>
   </div>
 </section>
@@ -552,26 +557,25 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
 <footer>
   <div class="wrap">
     <div class="links">
-      <a href="https://github.com/fruitflydev/flycoinrh">source</a>
-      <a href="https://x.com/fruitflydev">@fruitflydev</a>
+      <a href="https://github.com/0xdevonill/Spider">source</a>
       <a id="f-scan" href="https://robinhoodchain.blockscout.com">explorer</a>
     </div>
     <div><span class="pill"><span class="pip" id="pip"></span><span id="pip-t">reading the chain</span></span></div>
-    <p style="margin-top:22px;max-width:66ch">Connectome data &copy; HHMI Janelia FlyEM, the Cambridge Connectomics Group and Google Research, released CC-BY. Simulation after Shiu et&nbsp;al. 2024 and Lappalainen et&nbsp;al. 2024. Not affiliated with any of them, nor with pons or Robinhood. $FLYBRAIN is an art experiment, not an investment.</p>
+    <p style="margin-top:22px;max-width:66ch">Connectome data &copy; HHMI Janelia FlyEM, the Cambridge Connectomics Group and Google Research, released CC-BY. Simulation after Shiu et&nbsp;al. 2024 and Lappalainen et&nbsp;al. 2024. Not affiliated with any of them, nor with pons or Robinhood. $SPIDER is an art experiment, not an investment.</p>
   </div>
 </footer>
 
 <script>
 /* ---------------------------------------------------------------------------
-   The fly.
+   The spider.
 
    Same generator the live rig uses for its idle state: a point cloud with a
-   head, thorax, abdomen, two compound eyes, two wings and six legs, built from
-   gaussian shells so it reads as a specimen rather than a logo. It is drawn,
-   not traced - there is no path data anywhere in this file.
+   cephalothorax, abdomen, eight legs, pedipalps and clustered eyes, built from
+   gaussian shells so it reads as a specimen rather than a logo. When spider.png
+   loads, bright pixels are sampled so the cloud matches the specimen image.
 --------------------------------------------------------------------------- */
 const N = 15000;
-function buildFly(n){
+function buildSpider(n){
   const P = new Float32Array(n*3), R = Math.random;
   const gauss = () => { let u=0,v=0; while(!u)u=R(); while(!v)v=R();
     return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); };
@@ -582,40 +586,86 @@ function buildFly(n){
     const d = Math.hypot(x,y,z)||1; x/=d; y/=d; z/=d;
     const r = shell ? 0.86+0.14*R() : Math.cbrt(R());
     put(cx+x*rx*r, cy+y*ry*r, cz+z*rz*r); } };
+  const tube = (x0,y0,z0,x1,y1,z1,rad,k) => { for(let j=0;j<k;j++){
+    const t = R();
+    put(x0+(x1-x0)*t + gauss()*rad,
+        y0+(y1-y0)*t + gauss()*rad,
+        z0+(z1-z0)*t + gauss()*rad); } };
 
-  ell( 0.42, 0,    0,    0.20,0.19,0.19, Math.floor(n*0.10), true);
-  ell( 0.12, 0,    0,    0.26,0.22,0.22, Math.floor(n*0.16), true);
-  ell(-0.38, 0.02, 0,    0.42,0.24,0.23, Math.floor(n*0.24), true);
-  ell( 0.50, 0.05, 0.15, 0.10,0.12,0.07, Math.floor(n*0.05), false);
-  ell( 0.50, 0.05,-0.15, 0.10,0.12,0.07, Math.floor(n*0.05), false);
+  ell( 0.26, 0.04, 0,    0.28,0.18,0.22, Math.floor(n*0.14), true);
+  ell(-0.40, 0.10, 0,    0.42,0.32,0.34, Math.floor(n*0.22), true);
+  ell(-0.04, 0.04, 0,    0.10,0.07,0.08, Math.floor(n*0.025), true);
+  ell( 0.48,-0.04, 0.07, 0.07,0.08,0.05, Math.floor(n*0.02), false);
+  ell( 0.48,-0.04,-0.07, 0.07,0.08,0.05, Math.floor(n*0.02), false);
+  ell( 0.46, 0.10, 0.06, 0.04,0.04,0.035, Math.floor(n*0.012), false);
+  ell( 0.46, 0.10,-0.06, 0.04,0.04,0.035, Math.floor(n*0.012), false);
+  ell( 0.50, 0.06, 0.03, 0.03,0.03,0.03, Math.floor(n*0.008), false);
+  ell( 0.50, 0.06,-0.03, 0.03,0.03,0.03, Math.floor(n*0.008), false);
 
-  for (const sgn of [1,-1]) {
-    const k = Math.floor(n*0.13);
-    for (let j=0;j<k;j++){
-      const t=R(), a=(R()-0.5);
-      const len = 0.95*t, wid = 0.16*Math.sin(Math.PI*t)*(1+0.3*a);
-      put(0.05-len*0.92, 0.20+len*0.34+wid*a*0.7, sgn*(0.10+len*0.20+wid*a));
+  const kLeg = Math.floor(n*0.035);
+  for (let L = 0; L < 4; L++) {
+    for (const sgn of [1, -1]) {
+      const bx = 0.32 - L * 0.09, by = 0.00, bz = sgn * 0.18;
+      const reach = L < 2 ? 1 : -1;
+      const kneeX = bx + reach * (0.16 + L * 0.04);
+      const kneeY = 0.22 + (L === 1 || L === 2 ? 0.10 : 0.04);
+      const kneeZ = sgn * (0.42 + L * 0.05);
+      const tipX = bx + reach * (0.28 + L * 0.10);
+      const tipY = -0.52;
+      const tipZ = sgn * (0.50 + L * 0.06);
+      tube(bx, by, bz, kneeX, kneeY, kneeZ, 0.028, kLeg);
+      tube(kneeX, kneeY, kneeZ, tipX, tipY, tipZ, 0.022, kLeg);
     }
   }
-  for (let L=0; L<6; L++) {
-    const sgn = L<3?1:-1, seg = L%3;
-    const bx = 0.24-seg*0.16, k = Math.floor(n*0.022);
-    for (let j=0;j<k;j++){
-      const t=R();
-      put(bx-t*0.34, -0.18-t*0.42, sgn*(0.16+t*0.20+0.03*gauss()));
-    }
+  for (const sgn of [1, -1]) {
+    tube(0.40, -0.02, sgn*0.10, 0.56, -0.16, sgn*0.16, 0.02, Math.floor(n*0.018));
   }
-  while (i<n) put(gauss()*0.5, gauss()*0.28, gauss()*0.28);
+  while (i<n) put(gauss()*0.45, gauss()*0.26, gauss()*0.26);
   return P;
 }
 
-const FLY = buildFly(N);
+function sampleSpiderImage(img, n){
+  const c = document.createElement('canvas');
+  const w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+  c.width = w; c.height = h;
+  const g = c.getContext('2d', {willReadFrequently:true});
+  g.drawImage(img, 0, 0);
+  const data = g.getImageData(0, 0, w, h).data;
+  const cand = [];
+  const step = Math.max(1, Math.floor(Math.min(w, h) / 280));
+  for (let y = 0; y < h; y += step) {
+    for (let x = 0; x < w; x += step) {
+      const off = (y * w + x) * 4;
+      const br = (data[off] + data[off+1] + data[off+2]) / 3;
+      if (br > 22) cand.push(x, y, br);
+    }
+  }
+  const P = new Float32Array(n*3);
+  if (!cand.length) return P;
+  const count = cand.length / 3;
+  for (let i = 0; i < n; i++) {
+    const k = ((Math.random() * count) | 0) * 3;
+    const x = cand[k], y = cand[k+1], br = cand[k+2];
+    P[i*3]   = (0.5 - x / w) * 1.55;
+    P[i*3+1] = (0.5 - y / h) * 1.35;
+    P[i*3+2] = ((br / 255) - 0.35) * 0.22 + (Math.random() - 0.5) * 0.05;
+  }
+  return P;
+}
+
+let SPIDER = buildSpider(N);
+(function loadSpecimen(){
+  const img = new Image();
+  img.decoding = 'async';
+  img.onload = () => { try { SPIDER = sampleSpiderImage(img, N); } catch (e) {} };
+  img.src = 'spider.png';
+})();
 const heat = new Float32Array(N);
-const cv = document.getElementById('fly');
+const cv = document.getElementById('spider');
 const cx = cv.getContext('2d', {alpha:false});
-/* A full spin makes the fly unreadable most of the time - head-on it is just
-   a blob. It sways around side-on instead, which is the view the specimen is
-   recognisable from, and the pointer nudges it a little further. */
+/* A full spin makes the spider unreadable most of the time - head-on it is just
+   a blob. It sways around three-quarter instead, which is the view the specimen
+   is recognisable from, and the pointer nudges it a little further. */
 let t = 0, pointer = 0, targetPointer = 0;
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -639,14 +689,14 @@ function draw(){
   const S = Math.min(W * 0.82, H * 1.15) * 0.42;
   const bob = reduced ? 0 : Math.sin(t * 0.9) * H * 0.010;
   // on a phone the canvas is short and the wordmark sits below it in flow,
-  // so the fly can use more of its own box before it crowds anything
+  // so the spider can use more of its own box before it crowds anything
   const cyOff = H * (innerWidth < 640 ? 0.50 : 0.40);
 
   for (let i=0;i<N;i++){
-    const ax = FLY[i*3], ay = FLY[i*3+2], az = -FLY[i*3+1];
+    const ax = SPIDER[i*3], ay = SPIDER[i*3+2], az = -SPIDER[i*3+1];
     const dx = ax*ct - ay*st;              // rotate about the vertical
     const dz = ax*st + ay*ct;              // depth, for size and haze
-    const X = W/2 - dx*S;      // head to the left, as in the logo
+    const X = W/2 - dx*S;      // cephalothorax to the left, as in the logo
     const Y = cyOff + az*S + bob;
     const depth = (dz + 1) * 0.5;          // 0 far, 1 near
     const h = heat[i];
@@ -707,14 +757,16 @@ function abiString(x){
 }
 
 function render(d){
-  $('blk').textContent = 'block ' + nf(d.block);
-  const t = d.token;
-  $('t-ca').textContent = t.address;
-  $('t-pair').textContent = t.pair;
-  $('t-tax').textContent = t.creator_tax_pct.toFixed(2) + ' %';
-  $('t-sup').textContent = nf(t.supply) + ' ' + t.symbol;
-  $('t-link').href = 'https://www.ponsfamily.com/launchpad/' + t.address;
-  $('f-scan').href = 'https://robinhoodchain.blockscout.com/token/' + t.address;
+  if (d && d.block != null) $('blk').textContent = 'block ' + nf(d.block);
+  const t = (d && d.token) || {};
+  if (t.address) {
+    $('t-ca').textContent = t.address;
+    $('t-link').href = 'https://www.ponsfamily.com/launchpad/' + t.address;
+    $('f-scan').href = 'https://robinhoodchain.blockscout.com/token/' + t.address;
+  }
+  if (t.pair) $('t-pair').textContent = t.pair;
+  if (t.creator_tax_pct != null) $('t-tax').textContent = Number(t.creator_tax_pct).toFixed(2) + ' %';
+  if (t.supply != null) $('t-sup').textContent = nf(t.supply) + (t.symbol ? ' ' + t.symbol : '');
   $('upd').textContent = new Date().toISOString().slice(11,19) + ' UTC';
   $('pip').classList.remove('stale');
   $('pip-t').textContent = 'read from Robinhood Chain';
@@ -730,7 +782,7 @@ async function readChain(){
     if (d && d.ok) { render(d); return; }
   } catch (e) { /* fall through */ }
 
-  // token facts only - the fly's wallet address lives in the proxy, not here
+  // token facts only - the spider's wallet address lives in the proxy, not here
   const [blk, sup, sym] = await Promise.all([
     rpc('eth_blockNumber', []),
     rpc('eth_call', [{to:TOKEN, data:'0x18160ddd'}, 'latest']),
@@ -786,14 +838,14 @@ async function tick(){
 /* ---------------------------------------------------------------------------
    The roam feed.
 
-   The fly needs a real browser, so it runs on a machine rather than in a
+   The spider needs a real browser, so it runs on a machine rather than in a
    serverless function. FLY_FEED points at wherever that machine publishes;
    with nothing set, a visitor on localhost sees their own rig and everyone
    else sees the panel say so rather than a broken image.
 --------------------------------------------------------------------------- */
-/* The fly publishes its latest frame and summary to a public object store,
+/* The spider publishes its latest frame and summary to a public object store,
    overwriting the same two paths. The page reads them straight from there, so
-   nothing about this feed depends on the machine the fly runs on being
+   nothing about this feed depends on the machine the spider runs on being
    reachable from the internet. */
 const BLOB = 'https://vyxkhfq5bah8fgid.public.blob.vercel-storage.com/roam';
 const LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
@@ -818,14 +870,22 @@ function rdraw(){
     rwing += 0.5;
     rg.save(); rg.translate(x,y);
     rg.fillStyle = 'rgba(125,234,255,0.92)';
-    rg.beginPath(); rg.ellipse(0,0,s*0.62,s*0.42,0,0,7); rg.fill();
-    rg.beginPath(); rg.ellipse(s*0.62,-s*0.06,s*0.30,s*0.28,0,0,7); rg.fill();
-    rg.fillStyle = 'rgba(125,234,255,0.32)';
-    for (const sg of [1,-1]){
-      rg.beginPath();
-      rg.ellipse(-s*0.22, sg*(s*0.42+Math.abs(Math.sin(rwing))*s*0.16),
-                 s*0.72, s*0.20, sg*0.5, 0, 7);
-      rg.fill();
+    rg.beginPath(); rg.ellipse(-s*0.12, 0, s*0.52, s*0.40, 0, 0, 7); rg.fill();
+    rg.beginPath(); rg.ellipse(s*0.42, 0, s*0.30, s*0.26, 0, 0, 7); rg.fill();
+    rg.strokeStyle = 'rgba(125,234,255,0.72)';
+    rg.lineWidth = Math.max(1.2, s*0.10);
+    rg.lineCap = 'round';
+    for (let L = 0; L < 4; L++) {
+      for (const sg of [1, -1]) {
+        const bx = s*0.22 - L*s*0.10;
+        const midY = sg*(s*0.28 + Math.abs(Math.sin(rwing))*s*0.10);
+        const tipX = bx + (L < 2 ? s*0.38 : -s*0.48);
+        const tipY = sg*(s*0.82 + L*s*0.04);
+        rg.beginPath();
+        rg.moveTo(bx, sg*s*0.06);
+        rg.quadraticCurveTo(bx + sg*s*0.04, midY, tipX, tipY);
+        rg.stroke();
+      }
     }
     rg.restore();
   }
@@ -979,7 +1039,7 @@ function goOffline(){
 }
 
 /* ---- the live socket --------------------------------------------------
-   Object storage is not a stream. When the fly has a tunnel open, the page
+   Object storage is not a stream. When the spider has a tunnel open, the page
    talks to it directly and gets a frame the moment the page repaints plus
    cursor positions as it travels between decisions. The polled feed stays as
    the fallback for when there is no tunnel. */
@@ -992,7 +1052,8 @@ function openSocket(url){
   try { if (sock) sock.close(); } catch (e) {}
   sock = new WebSocket(url.replace(/^http/, 'ws') + '/ws');
   sock.onmessage = function(ev){
-    const m = JSON.parse(ev.data);
+    let m;
+    try { m = JSON.parse(ev.data); } catch (e) { return; }
     if (m.type === 'view'){
       $$('r-img').src = 'data:image/jpeg;base64,' + m.jpg;
       rtar = {x: m.cx/1280, y: m.cy/800};
@@ -1012,14 +1073,14 @@ function openSocket(url){
 
 let tickN = 0;
 /* Discovery, then the socket.
-   The fly's tunnel address is random and changes every run, so live.json in
+   The spider's tunnel address is random and changes every run, so live.json in
    the public repo says where it is. Everything after that - frames, the
    neural readout, the event stream - arrives on the socket itself. There is
    no object store in the path any more: pushing two frames a second to one
    suspended it on operation count and every read started answering 403. */
-/* The fly has a permanent home now: a Railway service that stays up when
+/* The spider has a permanent home now: a Railway service that stays up when
    nobody's desk is on. It is tried first. The tunnel address in live.json is
-   only the fallback, for when the fly is being run from a laptop. */
+   only the fallback, for when the spider is being run from a laptop. */
 const STABLE_STREAM = 'https://flybrain-production-2b26.up.railway.app';
 async function findStableStream(){
   try {
@@ -1034,10 +1095,10 @@ async function findStableStream(){
 
 async function findStream(){
   try {
-    /* Read from the repo, not from this deployment: the fly writes the
+    /* Read from the repo, not from this deployment: the spider writes the
        address there and this page is only redeployed when someone deploys
        it. The minute-keyed query keeps the CDN copy from going stale. */
-    const src = 'https://raw.githubusercontent.com/fruitflydev/flycoinrh/main/site/web/live.json';
+    const src = 'https://raw.githubusercontent.com/0xdevonill/Spider/main/flycoinrh-main/site/web/live.json';
     const r = await fetch(src + '?t=' + Math.floor(Date.now()/60000));
     if (!r.ok) return null;
     const d = await r.json();

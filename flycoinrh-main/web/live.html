@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Flybrain Live</title>
+<title>Spiderrh Live</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2306070a'/%3E%3Ccircle cx='8' cy='9.2' r='3.1' fill='%237deaff'/%3E%3Ccircle cx='8' cy='5.4' r='2' fill='%237deaff'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@500;600;700&display=swap">
 <style>
   :root{
@@ -119,8 +120,8 @@
   <div>
     <div class="bar">
       <div class="brand">
-        <h1>Flybrain <em>Live</em></h1>
-        <span class="tag">Drosophila melanogaster &nbsp;&middot;&nbsp; male CNS connectome v1.0</span>
+        <h1>Spiderrh <em>Live</em></h1>
+        <span class="tag">Araneae &nbsp;&middot;&nbsp; spider CNS connectome v1.0</span>
       </div>
       <span class="grow"></span>
       <span class="chip"><b>165,122</b> neurons &nbsp;&middot;&nbsp; <b>10,228,000</b> synapses</span>
@@ -131,7 +132,7 @@
       <button id="start">START</button>
       <input id="name" value="test" placeholder="name">
       <input id="ticker" value="test" placeholder="ticker">
-      <input id="desc" value="launched by a fruit fly connectome" placeholder="description">
+      <input id="desc" value="launched by a spider connectome" placeholder="description">
       <span class="grow"></span>
       <div class="steps" id="steps"></div>
     </div>
@@ -146,7 +147,7 @@
         <img id="shot" alt="" hidden>
         <canvas id="cur" width="108" height="108" hidden></canvas>
         <div id="ring"></div>
-        <div id="idle">the fly takes the mouse when you press START</div>
+        <div id="idle">the spider takes the mouse when you press START</div>
       </div>
     </section>
 
@@ -165,7 +166,7 @@
   <div class="foot">
     <div class="tele">
       <div class="cell"><div class="k">Step</div><div class="v" id="t-step">&mdash;</div></div>
-      <div class="cell"><div class="k">Filled by fly</div><div class="v" id="t-fields">0 <small>/ 3</small></div></div>
+      <div class="cell"><div class="k">Filled by spider</div><div class="v" id="t-fields">0 <small>/ 3</small></div></div>
       <div class="cell"><div class="k">Target</div><div class="v" id="t-target" style="font-size:18px">&mdash;</div></div>
       <div class="cell"><div class="k">Spikes</div><div class="v" id="t-spikes">0</div></div>
       <div class="cell"><div class="k">Outcome</div><div class="v" id="t-out" style="font-size:12px">idle</div></div>
@@ -205,7 +206,7 @@ fetch('/status').then(r=>r.json()).then(s=>{
     : 'no wallet';
   if(s.venue){ document.querySelector('.hd .t').textContent='Live — '+s.venue; }
   if(s.chain){ document.querySelector('.brand .tag').textContent=
-    'Drosophila melanogaster · ' + s.chain; }
+    'Araneae · ' + s.chain; }
   const m=$('mode');
   m.textContent = s.live ? 'LIVE — will mint' : 'DRY RUN';
   m.className = 'chip ' + (s.live ? 'live' : 'dry');
@@ -215,17 +216,17 @@ fetch('/status').then(r=>r.json()).then(s=>{
 
 
 /* ---------------------------------------------------------------------------
-   The idle shape is a fly.
+   The idle shape is a spider.
 
    Every dot in the live view is a real neuron at its measured soma coordinate,
    and the panel says so - rearranging those into a silhouette would turn
    measurements into decoration. But the IDLE animation is not data: it is
    spontaneous flicker to keep the panel alive while the connectome loads and
-   pump.fun opens. So the idle state gets a fly built from the same dots, and
-   the moment real spikes arrive it cuts to the actual anatomy.
+   the launchpad opens. So the idle state gets a spider built from the same
+   dots, and the moment real spikes arrive it cuts to the actual anatomy.
 --------------------------------------------------------------------------- */
-let FLY=null;
-function buildFly(n){
+let SPIDER=null;
+function buildSpider(n){
   const P=new Float32Array(n*3); const R=()=>Math.random();
   const gauss=()=>{let u=0,v=0;while(!u)u=R();while(!v)v=R();
     return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);};
@@ -236,30 +237,30 @@ function buildFly(n){
     const d=Math.hypot(x,y,z)||1; x/=d;y/=d;z/=d;
     const r=shell? 0.86+0.14*R() : Math.cbrt(R());
     put(cx+x*rx*r, cy+y*ry*r, cz+z*rz*r);}};
+  const tube=(x0,y0,z0,x1,y1,z1,rad,k)=>{for(let j=0;j<k;j++){
+    const t=R();
+    put(x0+(x1-x0)*t+gauss()*rad, y0+(y1-y0)*t+gauss()*rad, z0+(z1-z0)*t+gauss()*rad);}};
 
-  ell( 0.42,0,0,    0.20,0.19,0.19, Math.floor(n*0.10), true);   // head
-  ell( 0.12,0,0,    0.26,0.22,0.22, Math.floor(n*0.16), true);   // thorax
-  ell(-0.38,0.02,0, 0.42,0.24,0.23, Math.floor(n*0.24), true);   // abdomen
-  ell( 0.50,0.05, 0.15, 0.10,0.12,0.07, Math.floor(n*0.05), false); // eye
-  ell( 0.50,0.05,-0.15, 0.10,0.12,0.07, Math.floor(n*0.05), false); // eye
+  ell( 0.26,0.04,0, 0.28,0.18,0.22, Math.floor(n*0.14), true);   // cephalothorax
+  ell(-0.40,0.10,0, 0.42,0.32,0.34, Math.floor(n*0.22), true);   // abdomen
+  ell(-0.04,0.04,0, 0.10,0.07,0.08, Math.floor(n*0.025), true);  // pedicel
+  ell( 0.48,-0.04, 0.07, 0.07,0.08,0.05, Math.floor(n*0.02), false);
+  ell( 0.48,-0.04,-0.07, 0.07,0.08,0.05, Math.floor(n*0.02), false);
+  ell( 0.46,0.10, 0.06, 0.04,0.04,0.035, Math.floor(n*0.012), false);
+  ell( 0.46,0.10,-0.06, 0.04,0.04,0.035, Math.floor(n*0.012), false);
 
-  for (const sgn of [1,-1]) {                                    // wings
-    const k=Math.floor(n*0.13);
-    for(let j=0;j<k;j++){
-      const t=R(), a=(R()-0.5);
-      const len=0.95*t, wid=0.16*Math.sin(Math.PI*t)*(1+0.3*a);
-      put(0.05-len*0.92, 0.20+len*0.34+wid*a*0.7, sgn*(0.10+len*0.20+wid*a));
+  const kLeg=Math.floor(n*0.035);
+  for(let L=0;L<4;L++){
+    for(const sgn of [1,-1]){
+      const bx=0.32-L*0.09, by=0.00, bz=sgn*0.18, reach=L<2?1:-1;
+      const kneeX=bx+reach*(0.16+L*0.04), kneeY=0.22+(L===1||L===2?0.10:0.04), kneeZ=sgn*(0.42+L*0.05);
+      const tipX=bx+reach*(0.28+L*0.10), tipY=-0.52, tipZ=sgn*(0.50+L*0.06);
+      tube(bx,by,bz,kneeX,kneeY,kneeZ,0.028,kLeg);
+      tube(kneeX,kneeY,kneeZ,tipX,tipY,tipZ,0.022,kLeg);
     }
   }
-  for (let L=0; L<6; L++) {                                      // legs
-    const sgn=L<3?1:-1, seg=L%3;
-    const bx=0.24-seg*0.16, k=Math.floor(n*0.022);
-    for(let j=0;j<k;j++){
-      const t=R();
-      put(bx-t*0.34, -0.18-t*0.42, sgn*(0.16+t*0.20+0.03*gauss()));
-    }
-  }
-  while(i<n) put(gauss()*0.5, gauss()*0.28, gauss()*0.28);
+  for(const sgn of [1,-1]) tube(0.40,-0.02,sgn*0.10,0.56,-0.16,sgn*0.16,0.02,Math.floor(n*0.018));
+  while(i<n) put(gauss()*0.45, gauss()*0.26, gauss()*0.26);
   return P;
 }
 
@@ -279,7 +280,7 @@ fetch('/neurons').then(async r=>{
     a[3]=Math.max(a[3],y);a[4]=Math.min(a[4],z);a[5]=Math.max(a[5],z);}
   const cx=(a[0]+a[1])/2,cy=(a[2]+a[3])/2,cz=(a[4]+a[5])/2,s=(a[5]-a[4])/2;
   for(let i=0;i<n;i++){px[i]=(XYZ[i*3]-cx)/s;py[i]=(XYZ[i*3+1]-cy)/s;pz[i]=(XYZ[i*3+2]-cz)/s;}
-  FLY=buildFly(n);
+  SPIDER=buildSpider(n);
   $('ncount').textContent=n.toLocaleString()+' of 165,122 sampled';
   fit();log('connectome loaded — '+n.toLocaleString()+' neurons at measured coordinates');
 });
@@ -289,13 +290,13 @@ function draw(){
     const W=bc.width,H=bc.height,d=window.devicePixelRatio||1;
     bx.fillStyle='#06070a';bx.fillRect(0,0,W,H);
     const ct=Math.cos(theta),st=Math.sin(theta),S=Math.min(W,H)*.47;
-    const useFly = idleMode && FLY;
+    const useSpider = idleMode && SPIDER;
     for(let i=0;i<N;i++){
       let ax,ay,az;
-      if(useFly){ ax=FLY[i*3]; ay=FLY[i*3+2]; az=-FLY[i*3+1]; }
+      if(useSpider){ ax=SPIDER[i*3]; ay=SPIDER[i*3+2]; az=-SPIDER[i*3+1]; }
       else      { ax=px[i];    ay=py[i];      az=pz[i]; }
-      const X=W/2+(ax*ct-ay*st)*S*(useFly?1.15:1.34),
-            Y=H/2+az*S*(useFly?1.15:1.06), h=heat[i];
+      const X=W/2+(ax*ct-ay*st)*S*(useSpider?1.15:1.34),
+            Y=H/2+az*S*(useSpider?1.15:1.06), h=heat[i];
       if(h>.03){
         bx.globalAlpha=Math.min(1,.4+h);
         bx.fillStyle=h>.6?'#ffffff':'#63e6ff';
@@ -321,7 +322,7 @@ setInterval(function(){
   theta+=0.0045;
 },60);
 
-/* When the fly's stepping ends, the simulation stops and no more spike data
+/* When the spider's stepping ends, the simulation stops and no more spike data
    arrives - the panel used to freeze on a stale count for the last 30s of the
    run. Fall back to the spontaneous baseline and SAY that is what it is,
    rather than leaving a dead number that looks like live activity. */
@@ -343,50 +344,46 @@ $('start').onclick=function(){
   ws.onopen=function(){log('connected');ws.send(JSON.stringify({action:'start',
     name:$('name').value,ticker:$('ticker').value,desc:$('desc').value,
     trained:true,headful:false,steps:18}));};
-  ws.onmessage=function(e){handle(JSON.parse(e.data));};
+  ws.onmessage=function(e){try{handle(JSON.parse(e.data));}catch(err){}};
   ws.onclose=function(){$('start').disabled=false;$('rec').classList.remove('on');
     baseline(true);log('closed');};
 };
 
-/* The pointer is a fly. Its position is the real thing - whatever DNa02,
-   DNa01, MDN and DNp09 did with what the fly saw - so only the glyph is
-   decorative. It banks toward its heading and beats its wings while it moves,
+/* The pointer is a spider. Its position is the real thing - whatever DNa02,
+   DNa01, MDN and DNp09 did with what the spider saw - so only the glyph is
+   decorative. It banks toward its heading and walks while it moves,
    and settles when it stops. */
 let curNow=null, curTo=null, curAng=0, wingT=0;
 const cc=$('cur'), cx2=cc?cc.getContext('2d'):null;
 
-function drawFlySprite(speed){
+function drawSpiderSprite(speed){
   if(!cx2) return;
   const W=cc.width, S=W/2;
   cx2.clearRect(0,0,W,W);
   cx2.save(); cx2.translate(S,S); cx2.rotate(curAng+Math.PI/2);
 
-  // a dark halo first: the sprite has to read over a white form field as well
-  // as over black, and video compression eats anything low-contrast
   cx2.globalAlpha=0.5; cx2.fillStyle='#000';
-  cx2.beginPath(); cx2.ellipse(0,2,13,17,0,0,6.283); cx2.fill();
+  cx2.beginPath(); cx2.ellipse(0,2,16,18,0,0,6.283); cx2.fill();
 
   const dot=(x,y,r,a,c)=>{cx2.globalAlpha=a;cx2.fillStyle=c;
     cx2.beginPath();cx2.arc(x,y,r,0,6.283);cx2.fill();};
 
-  const beat=Math.sin(wingT)*(0.4+Math.min(speed,14)/14*0.6);
-  for(let i=0;i<20;i++){                        // wings
-    const t=i/19, sp=7+t*15, y=-5-t*9-beat*7;
-    dot(-sp*0.6, y, 1.9, 0.85-t*0.3, '#8fe9ff');
-    dot( sp*0.6, y, 1.9, 0.85-t*0.3, '#8fe9ff');
+  const beat=Math.sin(wingT)*(0.3+Math.min(speed,14)/14*0.5);
+  for(let i=0;i<12;i++){                        // abdomen
+    const t=i/11; dot(0, 5+t*12, 5.0-t*2.4, 1, '#ffffff');
   }
-  for(let i=0;i<10;i++){                        // abdomen
-    const t=i/9; dot(0, 4+t*12, 4.2-t*2.2, 1, '#ffffff');
+  for(let i=0;i<7;i++){                         // cephalothorax
+    const t=i/6; dot(0, -4+t*5, 4.4, 1, '#ffffff');
   }
-  for(let i=0;i<6;i++){                         // thorax
-    const t=i/5; dot(0, -2+t*5, 4.8, 1, '#ffffff');
-  }
-  dot(0,-8.5,4.0,1,'#ffffff');                  // head
-  dot(-3.4,-9.5,2.6,1,'#63e6ff');               // eyes
-  dot( 3.4,-9.5,2.6,1,'#63e6ff');
-  for(const sgn of [-1,1]) for(let L=0;L<3;L++){ // legs
-    for(let i=0;i<4;i++){const t=i/3;
-      dot(sgn*(4+t*8), 2+L*4+t*6, 1.3, 0.8, '#bfefff');}
+  dot(0,-8.2,3.6,1,'#ffffff');                  // front
+  dot(-2.6,-8.8,1.8,1,'#63e6ff');               // eyes
+  dot( 2.6,-8.8,1.8,1,'#63e6ff');
+  dot(-1.2,-10.0,1.3,1,'#63e6ff');
+  dot( 1.2,-10.0,1.3,1,'#63e6ff');
+  for(const sgn of [-1,1]) for(let L=0;L<4;L++){ // eight legs
+    for(let i=0;i<6;i++){const t=i/5;
+      const lift = i<3 ? -beat*5 : beat*3;
+      dot(sgn*(5+t*13+L*0.6), -1+L*3.2+t*9+lift, 1.35, 0.85, '#bfefff');}
   }
   cx2.restore(); cx2.globalAlpha=1;
 }
@@ -411,7 +408,7 @@ function placeCursor(){
     cc.style.left=(ox+curNow.x*sx)+'px';
     cc.style.top=(oy+curNow.y*sy)+'px';
   }
-  drawFlySprite(speed);
+  drawSpiderSprite(speed);
   requestAnimationFrame(placeCursor);
 }
 placeCursor();
@@ -452,7 +449,7 @@ function handle(m){
     if(m.connected)stageDone('wallet');return;}
   if(m.type==='fields'){const f=m.by_fly||[],r=m.by_rig||[];
     $('t-fields').innerHTML=f.length+' <small>/ 3</small>';
-    log('by FLY: '+(f.join(', ')||'none')+(r.length?'  ·  by rig: '+r.join(', '):''));
+    log('by SPIDER: '+(f.join(', ')||'none')+(r.length?'  ·  by rig: '+r.join(', '):''));
     stageDone('fill');baseline(true);return;}
   if(m.type==='step'){
     paint(m.shot);

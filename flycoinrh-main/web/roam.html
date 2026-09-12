@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FLYBRAIN — roaming</title>
+<title>Spiderrh — roaming</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2306070a'/%3E%3Ccircle cx='8' cy='9.2' r='3.1' fill='%237deaff'/%3E%3Ccircle cx='8' cy='5.4' r='2' fill='%237deaff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -34,6 +35,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .pane{background:var(--ground);padding:0}
 .viewwrap{position:relative;background:#000;aspect-ratio:16/10;overflow:hidden}
 #view{width:100%;height:100%;object-fit:contain;display:block}
+#view:not([src]){display:none}
 #cur{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .side{padding:18px 20px;display:grid;gap:20px;align-content:start;
   max-height:calc(100vh - 64px);overflow:auto}
@@ -72,7 +74,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <body>
 
 <div class="bar">
-  <h1>FLYBRAIN</h1>
+  <h1>SPIDERRH</h1>
   <span class="sub">roaming</span>
   <span class="pill"><span class="pip" id="pip"></span><span id="pip-t">idle</span></span>
   <span style="flex:1"></span>
@@ -83,7 +85,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <div class="grid">
   <div class="pane">
     <div class="viewwrap">
-      <img id="view" alt="what the fly is looking at">
+      <img id="view" alt="what the spider is looking at">
       <canvas id="cur"></canvas>
     </div>
     <div id="log"></div>
@@ -143,7 +145,7 @@ function sizeCanvas(){
 }
 addEventListener('resize', sizeCanvas); sizeCanvas();
 
-/* The pointer is a fly. The position is the real output of DNa02, DNa01, MDN
+/* The pointer is a spider. The position is the real output of DNa02, DNa01, MDN
    and DNp09 - only the glyph is decoration. */
 function drawCursor(){
   const W = cc.width, H = cc.height;
@@ -154,14 +156,22 @@ function drawCursor(){
   wing += 0.55;
   cg.save(); cg.translate(x, y);
   cg.fillStyle = 'rgba(125,234,255,0.92)';
-  cg.beginPath(); cg.ellipse(0, 0, s*0.62, s*0.42, 0, 0, 7); cg.fill();
-  cg.beginPath(); cg.ellipse(s*0.62, -s*0.06, s*0.30, s*0.28, 0, 0, 7); cg.fill();
-  cg.fillStyle = 'rgba(125,234,255,0.34)';
-  for (const sgn of [1,-1]){
-    cg.beginPath();
-    cg.ellipse(-s*0.22, sgn*(s*0.42 + Math.abs(Math.sin(wing))*s*0.16),
-               s*0.72, s*0.20, sgn*0.5, 0, 7);
-    cg.fill();
+  cg.beginPath(); cg.ellipse(-s*0.12, 0, s*0.52, s*0.40, 0, 0, 7); cg.fill();
+  cg.beginPath(); cg.ellipse(s*0.42, 0, s*0.30, s*0.26, 0, 0, 7); cg.fill();
+  cg.strokeStyle = 'rgba(125,234,255,0.72)';
+  cg.lineWidth = Math.max(1.2, s*0.10);
+  cg.lineCap = 'round';
+  for (let L = 0; L < 4; L++) {
+    for (const sg of [1, -1]) {
+      const bx = s*0.22 - L*s*0.10;
+      const midY = sg*(s*0.28 + Math.abs(Math.sin(wing))*s*0.10);
+      const tipX = bx + (L < 2 ? s*0.38 : -s*0.48);
+      const tipY = sg*(s*0.82 + L*s*0.04);
+      cg.beginPath();
+      cg.moveTo(bx, sg*s*0.06);
+      cg.quadraticCurveTo(bx + sg*s*0.04, midY, tipX, tipY);
+      cg.stroke();
+    }
   }
   cg.restore();
   requestAnimationFrame(drawCursor);
@@ -182,7 +192,8 @@ const fps = [];
 function connect(){
   ws = new WebSocket((location.protocol==='https:'?'wss://':'ws://') + location.host + '/ws');
   ws.onmessage = ev => {
-    const m = JSON.parse(ev.data);
+    let m;
+    try { m = JSON.parse(ev.data); } catch (e) { return; }
     if (m.type === 'view'){          // the fast one: just the screen
       $('view').src = 'data:image/jpeg;base64,' + m.jpg;
       target = {x: m.cx/1280, y: m.cy/800};
@@ -190,7 +201,7 @@ function connect(){
       while (fps.length && fps[0] < Date.now() - 1000) fps.shift();
       $('fps').textContent = fps.length + ' fps';
     }
-    else if (m.type === 'cursor'){   // the fly travelling between decisions
+    else if (m.type === 'cursor'){   // the spider travelling between decisions
       target = {x: m.cx/1280, y: m.cy/800};
     }
     else if (m.type === 'frame'){    // the slow one: what the brain decided
@@ -226,7 +237,7 @@ function connect(){
 }
 connect();
 
-/* No controls. The fly is already roaming; this page only watches. */
+/* No controls. The spider is already roaming; this page only watches. */
 setInterval(async () => {
   try {
     const d = await (await fetch('/state', {cache:'no-store'})).json();

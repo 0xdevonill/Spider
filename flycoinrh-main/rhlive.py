@@ -1,5 +1,5 @@
 """
-The live rig, Robinhood Chain edition: the fly on ponsfamily.com/launchpad.
+The live rig, Robinhood Chain edition: the spider on ponsfamily.com/launchpad.
 
 Same brain, same streaming, same viewer as live.py - a different venue and a
 different wallet. Runs on its own port so the two can coexist.
@@ -36,7 +36,7 @@ from rhprovider import attach
 
 ROOT = Path(__file__).parent
 URL = "https://www.ponsfamily.com/launchpad/create"
-IMAGE = "assets/flycoin_square.png"
+IMAGE = "assets/spiderrh_square.png"
 PAIR = os.environ.get("FLY_RH_PAIR", "GOOGL")   # default on the page is ETH
 X_HANDLE = os.environ.get("FLY_RH_X", "elonmusk")   # x.com/<handle> on the coin
 TAX_PCT = int(os.environ.get("FLY_RH_TAX", "2"))
@@ -864,7 +864,7 @@ async def show_coin_page(page, addr, send=None, shot=None):
             """() => { const L = document.body.innerText
                  .split(String.fromCharCode(10)).map(s => s.trim())
                  .filter(Boolean);
-               return L.filter(l => /paired|creator tax|supply|graduat|fruit fly/i
+               return L.filter(l => /paired|creator tax|supply|graduat|spider|fruit fly/i
                  .test(l)).slice(0, 6); }""")
         for line in facts:
             if send:
@@ -1145,7 +1145,7 @@ async def run(ws: WebSocket):
             STATE["running"] = True
             coin = {"name": msg.get("name") or "test",
                     "ticker": msg.get("ticker") or "test",
-                    "desc": msg.get("desc") or "launched by a fruit fly connectome",
+                    "desc": msg.get("desc") or "launched by a spider connectome",
                     "x": msg.get("x") or X_HANDLE}
             try:
                 await run_episode(ws, coin, int(msg.get("steps", 18)),

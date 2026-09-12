@@ -1,13 +1,13 @@
 """
-The fly, loose on the internet.
+The spider, loose on the internet.
 
-A page is screenshotted, sampled through the fly's 892 retinotopic hex columns
+A page is screenshotted, sampled through the spider's 892 retinotopic hex columns
 into L1 and L2, and 165,122 neurons integrate. DNa02's left-right asymmetry
 moves the cursor sideways, DNa01 moves it up the page, MDN reverses, and DNp09
-- the stopping neuron - clicks. If the click lands on a link, the fly is
+- the stopping neuron - clicks. If the click lands on a link, the spider is
 somewhere new. Nothing chooses where it goes. That is the whole point.
 
-Be clear about what this is. A fly brain has no language, no goals and no plan.
+Be clear about what this is. A spider brain has no language, no goals and no plan.
 It cannot read a page, decide a destination or want anything. What it has is a
 real nervous system reacting to light, and what comes out is a cursor. Calling
 it browsing is fair; calling it deciding is not.
@@ -17,7 +17,7 @@ RAILS, and why each one is here
 * No wallet. This browser never gets a key, a provider or an extension. A
   random clicker with a signing key is how you lose everything, so the roaming
   browser and the launching browser have nothing in common but the brain.
-* No typing. The fly has no keyboard at all - it cannot fill a field, write a
+* No typing. The spider has no keyboard at all - it cannot fill a field, write a
   message or answer a prompt.
 * No downloads, no popups, no file dialogs.
 * A click is checked before it lands: anything that looks like a submit, an
@@ -204,8 +204,8 @@ def start_tunnel(port):
     threading.Thread(target=watch, daemon=True).start()
 
 
-LIVE_REPO = "fruitflydev/flycoinrh"
-LIVE_PATH = "site/web/live.json"
+LIVE_REPO = "0xdevonill/Spider"
+LIVE_PATH = "flycoinrh-main/site/web/live.json"
 _addr = {"url": None, "at": 0.0}
 
 
@@ -248,7 +248,7 @@ def publish_address():
             sha = call("GET").get("sha")
         except Exception:
             pass
-        payload = {"message": "the fly moved house",
+        payload = {"message": "the spider moved house",
                    "content": _b64.b64encode(body.encode()).decode()}
         if sha:
             payload["sha"] = sha
@@ -811,7 +811,7 @@ if __name__ == "__main__":
     a = ap.parse_args()
     STATE["port"] = a.port
     load_brain()
-    say(f"the fly roams - open http://localhost:{a.port}")
+    say(f"the spider roams - open http://localhost:{a.port}")
     # loopback on a desk, every interface in a container
     uvicorn.run(app, host=os.environ.get("FLY_HOST", "127.0.0.1"),
                 port=a.port, log_level="warning")
