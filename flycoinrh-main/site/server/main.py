@@ -19,9 +19,9 @@ from fastapi.middleware.cors import CORSMiddleware
 RPC = os.environ.get("FLY_RH_RPC", "https://rpc.mainnet.chain.robinhood.com")
 CHAIN_ID = 4663
 WALLET = os.environ.get("FLY_WALLET",
-                        "0x6ce4085EfB52a6eBDb7d6989beb8860847f4b42A")
+                        "0x240eEb6190Ba908f683d6B3A2c69291610FDDF15")
 TOKEN = os.environ.get("FLY_TOKEN",
-                       "0x4eb990547bce4a982432ca88cf5fae7eed1a2d35")
+                       "0xB028Af363D5767F49efb930Fa6E8856B13D153A8")
 # the wallet that made the first eight launches, still the fee recipient there
 WALLET_V1 = os.environ.get("FLY_WALLET_V1",
                            "0x739Ccc9dd8Ed6412F00782927dbd087c4e72bFc3")

@@ -60,14 +60,14 @@ UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
 # The launch, as it sits on chain. These never change, so they are constants
 # rather than something fetched.
 LAUNCH = {
-    "contract": "0x4eb990547bce4a982432ca88cf5fae7eed1a2d35",
+    "contract": "0xB028Af363D5767F49efb930Fa6E8856B13D153A8",
     "chain": "Robinhood Chain",
     "chain_id": 4663,
     "tx": "0x63b2164f3d784e46538cc81d3c48095bd7252a3d12398fdad9991870d12a4f1c",
     "block": 59614342,
     "launched_at": "2026-09-10T18:23:09Z",
     "launched_unix": 1789064589,
-    "creator": "0x6ce4085EfB52a6eBDb7d6989beb8860847f4b42A",
+    "creator": "0x240eEb6190Ba908f683d6B3A2c69291610FDDF15",
     "supply": 1000000000,
     "creator_tax_pct": 1.0,
     "paired_with": "GOOGL",

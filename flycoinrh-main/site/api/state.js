@@ -9,8 +9,8 @@
 // It reads. There is no key here and no method in the allowlist that writes.
 
 const RPC = process.env.FLY_RH_RPC || 'https://rpc.mainnet.chain.robinhood.com';
-const TOKEN = (process.env.FLY_TOKEN || '0x4eb990547bce4a982432ca88cf5fae7eed1a2d35').toLowerCase();
-const WALLET = process.env.FLY_WALLET || '0x6ce4085EfB52a6eBDb7d6989beb8860847f4b42A';
+const TOKEN = (process.env.FLY_TOKEN || '0xB028Af363D5767F49efb930Fa6E8856B13D153A8').toLowerCase();
+const WALLET = process.env.FLY_WALLET || '0x240eEb6190Ba908f683d6B3A2c69291610FDDF15';
 const BIRTH = process.env.FLY_TOKEN_BLOCK || '0x38DA606';
 const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
 const FEE_ETH = 0.00055;

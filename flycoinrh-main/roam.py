@@ -76,7 +76,7 @@ SEEDS = [
     "https://xkcd.com/",
     # and the chain it launched its own token on
     "https://www.ponsfamily.com/launchpad/explore",
-    "https://www.ponsfamily.com/launchpad/0x4eb990547bce4a982432ca88cf5fae7eed1a2d35",
+    "https://www.ponsfamily.com/launchpad/0xB028Af363D5767F49efb930Fa6E8856B13D153A8",
     "https://robinhoodchain.blockscout.com/txs",
 ]
 
