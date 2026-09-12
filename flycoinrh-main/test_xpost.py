@@ -29,7 +29,7 @@ class TestXLength(unittest.TestCase):
         self.assertEqual(xpost.x_length(""), 0)
 
     def test_http_url_counts_23(self):
-        url = "https://www.ponsfamily.com/launchpad/0x4eb990547bce4a982432ca88cf5fae7eed1a2d35"
+        url = "https://www.ponsfamily.com/launchpad/0xB028Af363D5767F49efb930Fa6E8856B13D153A8"
         self.assertGreater(len(url), 23)
         self.assertEqual(xpost.x_length(url), 23)
         self.assertEqual(xpost.x_length("read " + url), 5 + 23)

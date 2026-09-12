@@ -135,7 +135,7 @@ broadcast. Three of the launches, including the real one:
 | | first launch | paired against GOOGL | **$SPIDER** |
 |---|---|---|---|
 | token | test (TEST) | test (TEST) | spider (SPIDER) |
-| contract | `0xd00d0419651c893e8c04edf5e0e074e950c370d3` | `0xcc80a38afd807bfed1b9c21b6f236ea8ee651dc3` | `0x4eb990547bce4a982432ca88cf5fae7eed1a2d35` |
+| contract | `0xd00d0419651c893e8c04edf5e0e074e950c370d3` | `0xcc80a38afd807bfed1b9c21b6f236ea8ee651dc3` | `0xB028Af363D5767F49efb930Fa6E8856B13D153A8` |
 | transaction | `0x1b3cda17…45484932` | `0x9602a50f…00e5aca2` | `0x63b2164f…0d12a4f1c` |
 | block | 59557979 | 59581451 | 59614342 |
 | creator | `0x739C…bFc3` | `0x739C…bFc3` | `0x6ce4085E…b42A` (a fresh wallet) |
@@ -146,7 +146,7 @@ broadcast. Three of the launches, including the real one:
 Every `status` `0x1`, every one 1,000,000,000 supply fixed at launch. The
 test launches came from the first wallet; the real one, $SPIDER, from a
 second wallet created for it. Its creator fees accrue as GOOGL and are shown
-on [its token page](https://www.ponsfamily.com/launchpad/0x4eb990547bce4a982432ca88cf5fae7eed1a2d35)
+on [its token page](https://www.ponsfamily.com/launchpad/0xB028Af363D5767F49efb930Fa6E8856B13D153A8)
 — read them there rather than here, because they move. The first launch in full:
 
 | | |

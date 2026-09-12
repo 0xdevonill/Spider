@@ -467,7 +467,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
   <div class="wrap cain">
     <div>
       <div class="calabel">Contract address &middot; $SPIDER</div>
-      <div class="caval" id="ca-text">&mdash;</div>
+      <div class="caval" id="ca-text">0xB028Af363D5767F49efb930Fa6E8856B13D153A8</div>
     </div>
     <button class="copy" id="ca-copy" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
@@ -529,13 +529,13 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
     <h2>$SPIDER</h2>
     <p class="lede">Launched by the spider, from the spider's own wallet, on Robinhood Chain. Read the receipt yourself rather than taking this page's word for it.</p>
     <div class="scroll"><table>
-      <tr><th>Contract</th><td class="addr" id="t-ca">—</td></tr>
+      <tr><th>Contract</th><td class="addr" id="t-ca">0xB028Af363D5767F49efb930Fa6E8856B13D153A8</td></tr>
       <tr><th>Paired</th><td class="num" id="t-pair">—</td></tr>
       <tr><th>Creator tax</th><td class="num" id="t-tax">—</td></tr>
       <tr><th>Supply</th><td class="num" id="t-sup">—</td></tr>
       <tr><th>Chain</th><td class="num">Robinhood Chain · id 4663</td></tr>
     </table></div>
-    <p style="margin-top:22px"><a id="t-link" href="https://www.ponsfamily.com/launchpad">open on the launchpad</a></p>
+    <p style="margin-top:22px"><a id="t-link" href="https://www.ponsfamily.com/launchpad/0xB028Af363D5767F49efb930Fa6E8856B13D153A8">open on the launchpad</a></p>
   </div>
 </section>
 
@@ -557,7 +557,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
 <footer>
   <div class="wrap">
     <div class="links">
-      <a id="f-scan" href="https://robinhoodchain.blockscout.com">explorer</a>
+      <a id="f-scan" href="https://robinhoodchain.blockscout.com/token/0xB028Af363D5767F49efb930Fa6E8856B13D153A8">explorer</a>
     </div>
     <div><span class="pill"><span class="pip" id="pip"></span><span id="pip-t">reading the chain</span></span></div>
     <p style="margin-top:22px;max-width:66ch">Connectome data &copy; HHMI Janelia FlyEM, the Cambridge Connectomics Group and Google Research, released CC-BY. Simulation after Shiu et&nbsp;al. 2024 and Lappalainen et&nbsp;al. 2024. Not affiliated with any of them, nor with pons or Robinhood. $SPIDER is an art experiment, not an investment.</p>
@@ -758,11 +758,10 @@ function abiString(x){
 function render(d){
   if (d && d.block != null) $('blk').textContent = 'block ' + nf(d.block);
   const t = (d && d.token) || {};
-  if (t.address) {
-    $('t-ca').textContent = t.address;
-    $('t-link').href = 'https://www.ponsfamily.com/launchpad/' + t.address;
-    $('f-scan').href = 'https://robinhoodchain.blockscout.com/token/' + t.address;
-  }
+  $('t-ca').textContent = TOKEN;
+  $('ca-text').textContent = TOKEN;
+  $('t-link').href = 'https://www.ponsfamily.com/launchpad/' + TOKEN;
+  $('f-scan').href = 'https://robinhoodchain.blockscout.com/token/' + TOKEN;
   if (t.pair) $('t-pair').textContent = t.pair;
   if (t.creator_tax_pct != null) $('t-tax').textContent = Number(t.creator_tax_pct).toFixed(2) + ' %';
   if (t.supply != null) $('t-sup').textContent = nf(t.supply) + ' SPIDER';
