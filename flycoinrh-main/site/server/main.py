@@ -1,5 +1,5 @@
 """
-Live state for the flybrain site.
+Live state for the Spiderrh site.
 
 Everything here is read straight off Robinhood Chain over JSON-RPC. Blockscout
 sits behind Cloudflare and answers a challenge page to servers, so there is no
@@ -32,7 +32,7 @@ BIRTH_BLOCK = int(os.environ.get("FLY_TOKEN_BLOCK", "59614342"))
 TRANSFER = ("0xddf252ad1be2c89b69c2b068fc378daa"
             "952ba7f163c4a11628f55a4df523b3ef")
 
-app = FastAPI(title="flybrain")
+app = FastAPI(title="Spiderrh")
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_methods=["GET"],
     allow_headers=["*"])
@@ -160,4 +160,4 @@ def health():
 
 @app.get("/")
 def root():
-    return {"service": "flybrain", "see": "/api/state"}
+    return {"service": "spiderrh", "see": "/api/state"}

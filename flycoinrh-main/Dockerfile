@@ -1,4 +1,4 @@
-# The fly, on a machine that stays on.
+# The spider, on a machine that stays on.
 #
 # One service: the brain, a headless Chromium it drives, and the socket the
 # public site watches. No wallet and no secrets - the roaming browser has never

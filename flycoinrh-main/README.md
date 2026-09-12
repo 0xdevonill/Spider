@@ -1,6 +1,6 @@
-# flycoinrh
+# Spiderrh
 
-A real fruit fly brain, simulated neuron by neuron, driving the
+A real spider, simulated neuron by neuron, driving the
 [pons launchpad](https://www.ponsfamily.com/launchpad) on Robinhood Chain.
 
 165,122 neurons. 10,228,000 signed synaptic connections. Every one of them
@@ -14,14 +14,14 @@ lives at [ad7584/flycoin](https://github.com/ad7584/flycoin).
 ## What it actually does
 
 Press START and a real Chromium opens ponsfamily.com/launchpad. Its screenshots
-are sampled through the fly's **892 retinotopic hex columns** into L1 and L2 —
+are sampled through the spider's **892 retinotopic hex columns** into L1 and L2 —
 the lamina monopolar cells that are the direct postsynaptic targets of
 photoreceptors R1–R6. 165,122 neurons integrate. The cursor comes back out of
-the descending neurons a fly actually walks with:
+the descending neurons a spider actually walks with:
 
-| neuron | what it does in a fly | what it does here |
+| neuron | what it does in a spider | what it does here |
 |---|---|---|
-| **DNa02** left vs right | steering — a fly turns by left/right asymmetry | cursor x |
+| **DNa02** left vs right | steering — a spider turns by left/right asymmetry | cursor x |
 | **DNa01** | forward walking | cursor y |
 | **MDN** | the Moonwalker descending neuron — walking backwards | reverse |
 | **DNp09** | stopping | the click |
@@ -31,11 +31,11 @@ image, fills the form — name, ticker, description and the `x.com/` handle —
 picks the paired asset out of a 57-item list of tokenised equities, opens
 **Advanced**, sets the creator tax, and launches.
 
-## The fly is loose on the internet
+## The spider is loose on the internet
 
 `roam.py` gives it a browser and no instructions. A page is screenshotted,
 sampled through the 892 hex columns, and 165,122 neurons decide where the
-cursor goes. If a click lands on a link, the fly is somewhere new. When its
+cursor goes. If a click lands on a link, the spider is somewhere new. When its
 forward drive pushes past the bottom of the window the page scrolls, so it
 walks down a page the way it walks across one.
 
@@ -132,9 +132,9 @@ token**, then clicked **Confirm** in the launchpad's own dialog. That click
 produced exactly one `eth_sendTransaction`, which was signed in Python and
 broadcast. Three of the launches, including the real one:
 
-| | first launch | paired against GOOGL | **$FLYBRAIN** |
+| | first launch | paired against GOOGL | **$SPIDER** |
 |---|---|---|---|
-| token | test (TEST) | test (TEST) | flybrain (FLYBRAIN) |
+| token | test (TEST) | test (TEST) | spider (SPIDER) |
 | contract | `0xd00d0419651c893e8c04edf5e0e074e950c370d3` | `0xcc80a38afd807bfed1b9c21b6f236ea8ee651dc3` | `0x4eb990547bce4a982432ca88cf5fae7eed1a2d35` |
 | transaction | `0x1b3cda17…45484932` | `0x9602a50f…00e5aca2` | `0x63b2164f…0d12a4f1c` |
 | block | 59557979 | 59581451 | 59614342 |
@@ -144,7 +144,7 @@ broadcast. Three of the launches, including the real one:
 | cost | 0.000973 ETH | 0.000979 ETH | 0.000977 ETH |
 
 Every `status` `0x1`, every one 1,000,000,000 supply fixed at launch. The
-test launches came from the first wallet; the real one, $FLYBRAIN, from a
+test launches came from the first wallet; the real one, $SPIDER, from a
 second wallet created for it. Its creator fees accrue as GOOGL and are shown
 on [its token page](https://www.ponsfamily.com/launchpad/0x4eb990547bce4a982432ca88cf5fae7eed1a2d35)
 — read them there rather than here, because they move. The first launch in full:
@@ -417,8 +417,8 @@ Two flags gate everything, both in `.env`, both off by default:
 ## Fork it
 
 ```bash
-git clone https://github.com/fruitflydev/flycoinrh
-cd flycoinrh
+git clone https://github.com/0xdevonill/Spider
+cd Spider
 pip install -r requirements.txt
 python -m playwright install chromium
 
@@ -457,8 +457,8 @@ The roaming service runs as a single container. Build the graph first, so
 `build/graph.npz` and `data/body-annotations.feather` exist, then:
 
 ```bash
-docker build -t flybrain .
-docker run -p 4660:4660 flybrain      # http://localhost:4660
+docker build -t spiderrh .
+docker run -p 4660:4660 spiderrh      # http://localhost:4660
 ```
 
 To host it on Railway, run `railway up` from a checkout that has the graph

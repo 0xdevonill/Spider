@@ -549,7 +549,7 @@ def validate(post, packet):
 # --------------------------------------------------------------------------
 # the model
 # --------------------------------------------------------------------------
-FALLBACK_PROMPT = """You write the journal of a real simulated fruit fly brain that roams the
+FALLBACK_PROMPT = """You write the journal of a real simulated spider brain that roams the
 web. First person, plain, curious, tentative. It cannot read; the words are a
 language model's, narrating its telemetry, and it never denies that. Use only
 numbers from the packet. No trading language, predictions, hype or calls to
