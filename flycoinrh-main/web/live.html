@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@500;600;700&display=swap">
 <style>
   :root{
-    --ground:#06070a; --panel:#0c0e13; --panel-2:#11141c; --line:#1b1f2a;
-    --ink:#e6eaf2; --dim:#98a2b8; --muted:#5f6a80; --faint:#2e3542;
-    --spike:#63e6ff; --go:#4ade80; --warn:#f0b34a; --bad:#ff6b6b;
+    --ground:#050308; --panel:#120e18; --panel-2:#1a1522; --line:#2d2438;
+    --ink:#f4eef8; --dim:#b7abc6; --muted:#81758f; --faint:#3a3146;
+    --spike:#9ef0ff; --go:#7dffc4; --warn:#f0a86a; --bad:#ff6b8a;
   }
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -28,18 +28,18 @@
     letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
   .grow{flex:1}
   .chip{font-family:"IBM Plex Mono",monospace;font-size:13px;padding:6px 11px;
-    border:1px solid var(--line);border-radius:2px;color:var(--dim);
+    border:1px solid var(--line);border-radius:999px;color:var(--dim);
     background:var(--panel);white-space:nowrap}
   .chip b{color:var(--ink);font-weight:600}
   .chip.live{border-color:#5a2020;background:#1a0e0e;color:#ff9b9b}
   .chip.dry{border-color:#1d3340;background:#0b1720;color:var(--spike)}
   button{font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.08em;
     font-weight:600;color:#04220f;background:var(--go);border:0;padding:11px 32px;
-    border-radius:3px;cursor:pointer}
+    border-radius:999px;cursor:pointer}
   button:disabled{opacity:.35;cursor:not-allowed}
   button:focus-visible{outline:2px solid var(--spike);outline-offset:2px}
   input{font-family:"IBM Plex Mono",monospace;font-size:13.5px;background:var(--panel-2);
-    border:1px solid var(--line);color:var(--ink);padding:9px 11px;border-radius:2px}
+    border:1px solid var(--line);color:var(--ink);padding:9px 11px;border-radius:8px}
   #name{width:130px} #ticker{width:95px} #desc{width:300px}
 
   .steps{display:flex;align-items:center}
@@ -54,7 +54,7 @@
   .st.done .lbl{color:var(--dim)}
 
   .main{display:grid;grid-template-columns:1.42fr 1fr;gap:10px;min-height:0}
-  .pane{background:var(--panel);border:1px solid var(--line);border-radius:3px;
+  .pane{background:var(--panel);border:1px solid var(--line);border-radius:14px;
     display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden}
   .hd{display:flex;align-items:center;gap:9px;padding:9px 13px;
     border-bottom:1px solid var(--line);flex:0 0 auto}
@@ -97,7 +97,7 @@
 
   .foot{display:grid;grid-template-columns:1.42fr 1fr;gap:10px;min-height:0}
   .tele{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);
-    border:1px solid var(--line);border-radius:3px;overflow:hidden}
+    border:1px solid var(--line);border-radius:14px;overflow:hidden}
   .cell{background:var(--panel);padding:10px 14px}
   .cell .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.15em;
     text-transform:uppercase;color:var(--muted)}
@@ -105,7 +105,7 @@
     font-variant-numeric:tabular-nums}
   .cell .v small{font-size:13px;color:var(--muted)}
   .cell .v.go{color:var(--go)} .cell .v.warn{color:var(--warn)}
-  #log{background:var(--panel);border:1px solid var(--line);border-radius:3px;
+  #log{background:var(--panel);border:1px solid var(--line);border-radius:14px;
     padding:9px 13px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;
     color:var(--dim);height:118px;overflow-y:auto;line-height:1.7}
   #log div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -288,7 +288,7 @@ fetch('/neurons').then(async r=>{
 function draw(){
   if(N){
     const W=bc.width,H=bc.height,d=window.devicePixelRatio||1;
-    bx.fillStyle='#06070a';bx.fillRect(0,0,W,H);
+    bx.fillStyle='#050308';bx.fillRect(0,0,W,H);
     const ct=Math.cos(theta),st=Math.sin(theta),S=Math.min(W,H)*.47;
     const useSpider = idleMode && SPIDER;
     for(let i=0;i<N;i++){

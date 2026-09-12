@@ -16,25 +16,24 @@
 <link rel="apple-touch-icon" href="/spider.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{
-  --ground:#06070a;
-  --plate:#0b0d12;
-  --line:#1a1f28;
-  --dot-hi:#dceef8;
-  --dot-mid:#7db8d4;
-  /* contrast against --ground #06070a, measured:
-     ink 14.6:1  ink-dim 7.4:1  ink-faint 4.8:1  cyan 9.6:1  amber 8.9:1
-     the old values were 4.0:1 and 2.3:1, which is why nothing read */
-  --ink:#e2eaf1;
-  --ink-dim:#9dabb7;
-  --ink-faint:#75828d;
-  --cyan:#7deaff;
-  --amber:#f0bc5f;
-  --live:#6fdca6;
-  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
-  --sans:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --ground:#050308;
+  --plate:#120e18;
+  --line:#2d2438;
+  --dot-hi:#f2e9ff;
+  --dot-mid:#9ad4ea;
+  --ink:#f4eef8;
+  --ink-dim:#b7abc6;
+  --ink-faint:#81758f;
+  --cyan:#9ef0ff;
+  --amber:#f0a86a;
+  --live:#7dffc4;
+  --silk:#e8d7ff;
+  --venom:#ff6b8a;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 *{box-sizing:border-box}
@@ -44,10 +43,23 @@ body{
   font-family:var(--sans);font-weight:400;font-size:17px;line-height:1.7;
   -webkit-font-smoothing:antialiased;
 }
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1100px 520px at 50% -8%, rgba(158,240,255,.08), transparent 58%),
+    radial-gradient(720px 480px at 100% 88%, rgba(176,80,255,.07), transparent 52%),
+    radial-gradient(640px 380px at 0% 70%, rgba(255,107,138,.04), transparent 48%);
+}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.14;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%239ef0ff' stroke-width='.65'%3E%3Ccircle cx='400' cy='240' r='70'/%3E%3Ccircle cx='400' cy='240' r='150'/%3E%3Ccircle cx='400' cy='240' r='250'/%3E%3Ccircle cx='400' cy='240' r='370'/%3E%3Cpath d='M400 240L400 0M400 240L800 40M400 240L800 240M400 240L800 500M400 240L400 800M400 240L0 500M400 240L0 240M400 240L0 40'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:900px 900px;background-position:center -120px;background-repeat:no-repeat;
+}
+body>*{position:relative;z-index:1}
 /* mono is for data and labels only - it is a poor face for paragraphs */
 .mono,code,.addr,.v .k,.eyebrow,.corner,.step .no,.step .tag,th{font-family:var(--mono)}
-a{color:var(--cyan);text-decoration:none;border-bottom:1px solid #1d4653}
-a:hover{border-bottom-color:var(--cyan)}
+a{color:var(--cyan);text-decoration:none;border-bottom:1px solid #355868}
+a:hover{border-bottom-color:var(--silk);color:var(--silk)}
 :focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 .wrap{max-width:980px;margin:0 auto;padding:0 24px}
 /* the rig is an instrument panel, not prose - it gets the width it needs
@@ -56,11 +68,14 @@ a:hover{border-bottom-color:var(--cyan)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- specimen plate ---------- */
-.plate{position:relative;min-height:420px;border-bottom:1px solid var(--line)}
+.plate{position:relative;min-height:420px;border-bottom:1px solid var(--line);
+  background:radial-gradient(80% 70% at 50% 40%, rgba(18,14,24,.2), transparent 70%)}
 #spider{display:block;width:100%;height:min(62vh,560px)}
 .corner{
-  position:absolute;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  position:absolute;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--ink-faint);pointer-events:none;line-height:1.7;
+  padding:8px 12px;border:1px solid rgba(158,240,255,.12);border-radius:999px;
+  background:rgba(5,3,8,.42);backdrop-filter:blur(8px);
 }
 .tl{top:22px;left:24px}
 .tr{top:22px;right:24px;text-align:right}
@@ -72,13 +87,14 @@ a:hover{border-bottom-color:var(--cyan)}
   position:absolute;left:0;right:0;bottom:64px;text-align:center;pointer-events:none;
 }
 .title h1{
-  font-family:var(--serif);font-weight:400;font-style:normal;
+  font-family:var(--serif);font-weight:600;font-style:normal;
   font-size:clamp(52px,11vw,116px);line-height:.92;margin:0;
-  letter-spacing:.005em;color:#eaf4fa;text-wrap:balance;
+  letter-spacing:.08em;color:#f7f2ff;text-wrap:balance;
+  text-shadow:0 0 48px rgba(158,240,255,.28), 0 12px 40px rgba(0,0,0,.55);
 }
 .title .latin{
   font-family:var(--serif);font-style:italic;font-size:clamp(14px,2.4vw,19px);
-  color:var(--ink-dim);margin-top:10px;
+  color:var(--silk);margin-top:10px;letter-spacing:.12em;
 }
 .title .state{
   margin-top:18px;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;
@@ -86,10 +102,10 @@ a:hover{border-bottom-color:var(--cyan)}
 }
 
 /* ---------- sections ---------- */
-section{padding:64px 0;border-bottom:1px solid var(--line)}
+section{padding:72px 0;border-bottom:1px solid var(--line)}
 h2{
-  font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,40px);line-height:1.15;
-  margin:0 0 6px;color:#eaf4fa;text-wrap:balance;
+  font-family:var(--serif);font-weight:600;font-size:clamp(30px,4vw,42px);line-height:1.15;
+  margin:0 0 8px;color:#f7f2ff;text-wrap:balance;
 }
 .lede{color:var(--ink-dim);max-width:62ch;margin:0 0 30px;font-size:18px;line-height:1.65}
 p{max-width:66ch;color:var(--ink);margin:0 0 18px}
@@ -98,24 +114,25 @@ p{max-width:66ch;color:var(--ink);margin:0 0 18px}
   color:var(--ink-faint);margin-bottom:14px;font-weight:500;
 }
 
-.path{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.path{display:grid;gap:8px;background:transparent;border:0}
 .step{
   background:var(--plate);padding:18px 20px;display:grid;
   grid-template-columns:34px 1fr auto;gap:16px;align-items:baseline;
+  border:1px solid var(--line);border-radius:14px;
 }
 .step .no{font-size:12px;color:var(--ink-faint);font-variant-numeric:tabular-nums}
 .step .what{color:var(--ink);font-weight:500;font-size:16.5px}
 .step .what em{font-style:normal;color:var(--ink-dim);display:block;font-size:15px;margin-top:5px;line-height:1.55}
 .step .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
 .done .tag{color:var(--live)}
-.now{background:#0e1219;box-shadow:inset 2px 0 0 var(--amber)}
+.now{background:#1a1224;box-shadow:inset 3px 0 0 var(--amber), 0 0 0 1px rgba(240,168,106,.25)}
 .now .tag{color:var(--amber)}
 .todo .tag{color:var(--ink-faint)}
 .todo .what{color:var(--ink-dim)}
 
-.wires{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;
-  background:var(--line);border:1px solid var(--line)}
-.wire{background:var(--plate);padding:18px}
+.wires{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;
+  background:transparent;border:0}
+.wire{background:var(--plate);padding:20px;border:1px solid var(--line);border-radius:14px}
 .wire .cell{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--cyan);letter-spacing:.04em}
 .wire .role{font-size:15px;color:var(--ink-dim);margin-top:6px;line-height:1.55}
 
@@ -125,7 +142,7 @@ td,th{text-align:left;padding:10px 14px 10px 0;border-bottom:1px solid var(--lin
   vertical-align:top}
 th{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);
   font-weight:500;white-space:nowrap;padding-right:28px}
-td.num{font-variant-numeric:tabular-nums;color:#eaf4fa}
+td.num{font-variant-numeric:tabular-nums;color:#f7f2ff}
 .addr{font-size:14px;word-break:break-all;color:var(--ink)}
 
 ul.plain{list-style:none;padding:0;margin:0;display:grid;gap:14px}
@@ -138,7 +155,8 @@ footer{padding:44px 0 70px;color:var(--ink-dim);font-size:14.5px}
 footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
 .pill{
   display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-family:var(--mono);
-  border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--ink-dim);
+  border:1px solid var(--line);border-radius:999px;padding:6px 14px;color:var(--ink-dim);
+  background:rgba(18,14,24,.7);
 }
 .pip{width:6px;height:6px;border-radius:50%;background:var(--live)}
 .pip.stale{background:var(--ink-faint)}
@@ -148,24 +166,25 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
    A phosphor instrument panel inset into the page. It commits to one look and
    paints every colour explicitly, so it reads the same wherever it lands. */
 .term{
-  --g:#3dff88; --g-dim:#1f8f4d; --g-faint:#155c33; --g-bg:#020704;
-  background:var(--g-bg);border:1px solid #123a24;font-family:var(--mono);
-  color:var(--g);font-size:12px;line-height:1.5;
+  --g:#9ef0ff; --g-dim:#4a9bb0; --g-faint:#245868; --g-bg:#060910;
+  background:var(--g-bg);border:1px solid #1c3d4a;font-family:var(--mono);
+  color:var(--g);font-size:12px;line-height:1.5;border-radius:18px;overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,.45), 0 0 0 1px rgba(158,240,255,.08);
 }
-.tbar{display:flex;align-items:center;gap:14px;padding:8px 12px;flex-wrap:wrap;
-  border-bottom:1px solid #123a24;background:#04100a}
+.tbar{display:flex;align-items:center;gap:14px;padding:10px 14px;flex-wrap:wrap;
+  border-bottom:1px solid #1c3d4a;background:#071218}
 .tname{font-weight:500;letter-spacing:.14em}
 .tdim{color:var(--g-faint);letter-spacing:.1em;font-size:10.5px}
 .tspacer{flex:1}
 .tpills{display:flex;gap:6px;flex-wrap:wrap}
 .pip2{border:1px solid var(--g-faint);color:var(--g-dim);padding:2px 7px;
   font-size:9.5px;letter-spacing:.12em;border-radius:2px}
-.pip2.on{color:var(--g);border-color:var(--g-dim);background:#07200f}
+.pip2.on{color:var(--g);border-color:var(--g-dim);background:#0a2430}
 .pip2.off{color:#5a2b2b;border-color:#4a2020}
 .tlive{color:#ff5f56;font-size:10px;letter-spacing:.14em}
 .tlive.on{color:var(--g)}
 
-.tgrid{display:grid;grid-template-columns:1fr 320px;gap:1px;background:#123a24}
+.tgrid{display:grid;grid-template-columns:1fr 320px;gap:1px;background:#1c3d4a}
 @media (max-width:880px){.tgrid{grid-template-columns:1fr}}
 .tscreen{position:relative;background:#000;min-height:320px;display:flex;
   align-items:center;justify-content:center;overflow:hidden}
@@ -177,13 +196,13 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
   align-items:center;justify-content:center;gap:6px;background:#000;
   color:var(--g-dim);letter-spacing:.14em;font-size:11px;text-align:center}
 .turl{position:absolute;left:0;right:0;bottom:0;display:flex;gap:12px;
-  padding:5px 10px;background:rgba(2,7,4,.92);border-top:1px solid #123a24;
+  padding:5px 10px;background:rgba(6,9,16,.92);border-top:1px solid #1c3d4a;
   font-size:11px;color:var(--g-dim)}
 .turl #r-url{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tfps{color:var(--g-faint)}
 
 .tside{background:var(--g-bg);display:grid;align-content:start}
-.tblk{padding:10px 12px;border-bottom:1px solid #0d2c1b}
+.tblk{padding:10px 12px;border-bottom:1px solid #123040}
 .tk{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--g-faint)}
 .tbig{font-size:30px;line-height:1.1;margin-top:5px;letter-spacing:.01em;
@@ -195,21 +214,21 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
   color:var(--g-faint)}
 .tqv{font-size:12.5px;color:var(--g);margin-top:1px;font-variant-numeric:tabular-nums}
 .scatter{width:100%;height:78px;display:block;margin-top:8px;background:#000;
-  border:1px solid #0d2c1b}
+  border:1px solid #123040}
 .tbars{display:grid;gap:5px;margin-top:8px}
 .trow{display:grid;grid-template-columns:60px 1fr 42px;gap:8px;align-items:center;
   font-size:10.5px}
 .trow .tn{color:var(--g-dim)}
-.trow .tt{height:6px;background:#06180e;border:1px solid #0d2c1b}
+.trow .tt{height:6px;background:#06141a;border:1px solid #123040}
 .trow .tf{height:100%;background:var(--g);width:0%;transition:width .2s linear}
 .trow .tv{text-align:right;color:var(--g-dim);font-variant-numeric:tabular-nums}
 .tvis{display:grid;grid-template-columns:1fr 88px;gap:10px;margin-top:8px;
   align-items:start}
 .tvis canvas{width:100%;height:74px;display:block;background:#000;
-  border:1px solid #0d2c1b}
+  border:1px solid #123040}
 .tvismeta{display:grid;gap:6px}
 
-.tevents{padding:10px 12px;border-top:1px solid #123a24}
+.tevents{padding:10px 12px;border-top:1px solid #1c3d4a}
 .tlog{margin-top:7px;height:92px;overflow:auto;font-size:11px;
   color:var(--g-dim);display:flex;flex-direction:column-reverse}
 .tlog div{padding:1px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -217,9 +236,9 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
 .tlog .blk{color:#ff8b7a}
 .tlog b{color:var(--g-faint);font-weight:400;margin-right:8px}
 
-.tfoot{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#123a24;
-  border-top:1px solid #123a24}
-.tfoot>div{background:#04100a;padding:8px 12px;display:flex;
+.tfoot{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#1c3d4a;
+  border-top:1px solid #1c3d4a}
+.tfoot>div{background:#071218;padding:8px 12px;display:flex;
   justify-content:space-between;align-items:baseline;gap:8px}
 .tfv{font-size:16px;color:var(--g);font-variant-numeric:tabular-nums}
 @media (max-width:640px){.tfoot{grid-template-columns:repeat(2,1fr)}}
@@ -305,21 +324,23 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
    a cyan rule, and the only filled button on the page. The button is 46px
    tall and 20px padded because a copy control people actually use should be
    an easy target, and it says what happened after it is pressed. */
-.cabar{background:#0a1116;border-bottom:1px solid var(--line);
-  box-shadow:inset 3px 0 0 var(--cyan)}
+.cabar{background:linear-gradient(90deg, rgba(18,14,24,.94), rgba(10,18,24,.94));
+  border:1px solid var(--line);border-radius:18px;max-width:980px;width:calc(100% - 32px);margin:8px auto 0;
+  box-shadow:inset 3px 0 0 var(--cyan), 0 18px 50px rgba(0,0,0,.28)}
 .cain{display:flex;align-items:center;justify-content:space-between;
   gap:22px;padding:20px 24px}
 .calabel{font-family:var(--mono);font-size:11px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--ink-faint);font-weight:500}
-.caval{font-family:var(--mono);font-size:15.5px;color:#f0f7fc;margin-top:7px;
+.caval{font-family:var(--mono);font-size:15.5px;color:#f7f2ff;margin-top:7px;
   word-break:break-all;line-height:1.5}
 .copy{
   display:inline-flex;align-items:center;gap:9px;flex:0 0 auto;
-  min-height:46px;padding:0 20px;border-radius:8px;cursor:pointer;
-  background:#12222a;color:var(--cyan);border:1px solid #24505e;
+  min-height:46px;padding:0 20px;border-radius:999px;cursor:pointer;
+  background:#1a2a32;color:var(--cyan);border:1px solid #3a6a7a;
   font-family:var(--mono);font-size:14px;font-weight:500;letter-spacing:.02em;
-  transition:background .15s,border-color .15s,color .15s;
+  transition:background .15s,border-color .15s,color .15s,box-shadow .15s;
 }
+.copy:hover{background:#20343c;border-color:var(--cyan);box-shadow:0 0 18px rgba(158,240,255,.18)}
 .copy:hover{background:#173139;border-color:var(--cyan)}
 .copy:active{transform:translateY(1px)}
 .copy.done{color:var(--live);border-color:#2f6650;background:#102019}
@@ -335,6 +356,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
   /* the absolutely-placed corner labels land on top of the wordmark at this
      width, so the plate becomes a column and they take their turn in it */
   .plate{display:flex;flex-direction:column;min-height:0}
+  .corner{position:static;border:0;background:transparent;padding:0;backdrop-filter:none}
   #spider{height:38vh;order:1}
   .title{position:static;order:2;padding:4px 20px 0}
   .title h1{font-size:clamp(46px,15vw,72px)}
@@ -532,7 +554,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
       <tr><th>Contract</th><td class="addr" id="t-ca">—</td></tr>
       <tr><th>Paired</th><td class="num" id="t-pair">—</td></tr>
       <tr><th>Creator tax</th><td class="num" id="t-tax">—</td></tr>
-      <tr><th>Supply</th><td class="num" id="t-sup">—</td></tr>
+      <tr><th>Supply</th><td class="num" id="t-sup">1,000,000,000 SPIDER</td></tr>
       <tr><th>Chain</th><td class="num">Robinhood Chain · id 4663</td></tr>
     </table></div>
     <p style="margin-top:22px"><a id="t-link" href="https://www.ponsfamily.com/launchpad">open on the launchpad</a></p>
@@ -681,7 +703,7 @@ addEventListener('pointermove', e => {
 
 function draw(){
   const W = cv.width, H = cv.height;
-  cx.fillStyle = '#06070a';
+  cx.fillStyle = '#050308';
   cx.fillRect(0,0,W,H);
   pointer += (targetPointer - pointer) * 0.04;
   const ang = Math.sin(t * 0.19) * 0.34 + pointer;
@@ -766,7 +788,7 @@ function render(d){
   }
   if (t.pair) $('t-pair').textContent = t.pair;
   if (t.creator_tax_pct != null) $('t-tax').textContent = Number(t.creator_tax_pct).toFixed(2) + ' %';
-  if (t.supply != null) $('t-sup').textContent = nf(t.supply) + (t.symbol ? ' ' + t.symbol : '');
+  if (t.supply != null) $('t-sup').textContent = nf(t.supply) + ' SPIDER';
   $('upd').textContent = new Date().toISOString().slice(11,19) + ' UTC';
   $('pip').classList.remove('stale');
   $('pip-t').textContent = 'read from Robinhood Chain';
@@ -783,13 +805,12 @@ async function readChain(){
   } catch (e) { /* fall through */ }
 
   // token facts only - the spider's wallet address lives in the proxy, not here
-  const [blk, sup, sym] = await Promise.all([
+  const [blk, sup] = await Promise.all([
     rpc('eth_blockNumber', []),
     rpc('eth_call', [{to:TOKEN, data:'0x18160ddd'}, 'latest']),
-    rpc('eth_call', [{to:TOKEN, data:'0x95d89b41'}, 'latest']),
   ]);
   render({block:int(blk), budget_eth:null,
-          token:{address:TOKEN, symbol:abiString(sym),
+          token:{address:TOKEN, symbol:'SPIDER',
                  supply:Number(BigInt(sup))/1e18, holders:null,
                  transfers:null, pair:'GOOGL', creator_tax_pct:1}});
 }
@@ -936,23 +957,23 @@ function paintPanels(){
   let d = fitCanvas(sc);
   sg.fillStyle = '#000'; sg.fillRect(0,0,sc.width,sc.height);
   for (const [x,y] of points){
-    sg.fillStyle = 'rgba(61,255,136,' + (0.3+Math.random()*0.55).toFixed(2) + ')';
+    sg.fillStyle = 'rgba(158,240,255,' + (0.3+Math.random()*0.55).toFixed(2) + ')';
     sg.fillRect(4 + x*(sc.width-8), 4 + (1-y)*(sc.height-8), 1.3*d, 1.3*d);
   }
 
   d = fitCanvas(rt);
   rtg.fillStyle = '#000'; rtg.fillRect(0,0,rt.width,rt.height);
   for (const [u,v,hz] of cols){
-    rtg.fillStyle = 'rgba(61,255,136,' + Math.max(0.05, Math.min(1,hz)).toFixed(2) + ')';
+    rtg.fillStyle = 'rgba(158,240,255,' + Math.max(0.05, Math.min(1,hz)).toFixed(2) + ')';
     rtg.fillRect(3 + u*(rt.width-6), 3 + v*(rt.height-6), 2.2*d, 2.2*d);
   }
 
   d = fitCanvas(sp);
-  pg.fillStyle = '#020704'; pg.fillRect(0,0,sp.width,sp.height);
+  pg.fillStyle = '#060910'; pg.fillRect(0,0,sp.width,sp.height);
   if (hist.length > 1){
     const mx = Math.max.apply(null, hist), mn = Math.min.apply(null, hist);
     const rng = Math.max(1, mx-mn);
-    pg.strokeStyle = '#3dff88'; pg.lineWidth = 1.2*d; pg.beginPath();
+    pg.strokeStyle = '#9ef0ff'; pg.lineWidth = 1.2*d; pg.beginPath();
     hist.forEach(function(v,i){
       const x = (i/(hist.length-1))*sp.width;
       const y = sp.height - 3 - ((v-mn)/rng)*(sp.height-6);

@@ -131,7 +131,7 @@ def state():
         out["token"] = {
             "address": TOKEN,
             "name": call_str(TOKEN, "0x06fdde03"),
-            "symbol": call_str(TOKEN, "0x95d89b41"),
+            "symbol": "SPIDER",
             "supply": sup / 1e18,
             "addresses_touched": h,
             "transfers": transfers,

@@ -72,7 +72,7 @@ export default async function handler(req, res) {
       launches_left: Math.floor(eth / FEE_ETH),
       token: {
         address: TOKEN,
-        symbol: abiString(sym),
+        symbol: 'SPIDER',
         supply: Number(BigInt(sup)) / 1e18,
         holders: h.holders,
         transfers: h.transfers,
