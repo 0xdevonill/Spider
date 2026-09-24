@@ -56,34 +56,80 @@ from flyeye import FlyPilot
 ROOT = Path(__file__).parent
 OUT = ROOT / "build"
 
-# Link-rich, text-heavy, safe places to be dropped into. The fly leaves them
-# on its own within a few clicks; these only decide where a life starts.
+# Link-rich English pages about web3, crypto news and trading analysis.
+# The fly leaves them on its own within a few clicks; these only decide where
+# a life starts. Many distinct pages, on purpose: a hop-budget reset picks a
+# seed at random, and a short list pins every life to the same few screens.
+#
+# Pons is unchanged. That is the launchpad the token is on. Everything else
+# that used to be a seed (random Wikipedia, Commons, Wikisource, Gutenberg,
+# Open Library, xkcd, Blockscout's transaction list) is gone.
+#
+# www.google.com/search is not a seed. A headless browser gets an "unusual
+# traffic" wall and almost no page. The Google entries below are English
+# Google News queries (hl=en), which is the Google surface that still paints,
+# and the Wikipedia articles are the pages those queries resolve to.
 SEEDS = [
-    # Weighted toward Special:Random on purpose. Every time a hop budget runs
-    # out the fly is put back on a seed, so if the seeds are a short fixed
-    # list it lands on the same few pages forever - which is exactly what
-    # happened. Special:Random is a different article every single time, so a
-    # reset becomes somewhere new rather than somewhere familiar.
-    "https://en.wikipedia.org/wiki/Special:Random",
-    "https://en.wikipedia.org/wiki/Special:Random",
-    "https://en.wikipedia.org/wiki/Special:Random",
-    "https://en.wikipedia.org/wiki/Special:Random",
-    "https://commons.wikimedia.org/wiki/Special:Random",
-    "https://en.wikisource.org/wiki/Special:Random",
-    "https://en.wikiquote.org/wiki/Special:Random",
-    "https://www.gutenberg.org/browse/scores/top",
-    "https://openlibrary.org/",
-    "https://xkcd.com/",
-    # and the chain it launched its own token on
+    "https://en.wikipedia.org/wiki/Web3",
+    "https://en.wikipedia.org/wiki/Cryptocurrency",
+    "https://en.wikipedia.org/wiki/Blockchain",
+    "https://en.wikipedia.org/wiki/Bitcoin",
+    "https://en.wikipedia.org/wiki/Ethereum",
+    "https://en.wikipedia.org/wiki/Decentralized_finance",
+    "https://en.wikipedia.org/wiki/Non-fungible_token",
+    "https://en.wikipedia.org/wiki/Smart_contract",
+    "https://en.wikipedia.org/wiki/Stablecoin",
+    "https://en.wikipedia.org/wiki/Cryptocurrency_exchange",
+    "https://en.wikipedia.org/wiki/Decentralized_autonomous_organization",
+    "https://en.wikipedia.org/wiki/Tokenomics",
+    "https://en.wikipedia.org/wiki/Meme_coin",
+    "https://en.wikipedia.org/wiki/Dogecoin",
+    "https://en.wikipedia.org/wiki/Altcoin",
+    "https://en.wikipedia.org/wiki/Initial_coin_offering",
+    "https://en.wikipedia.org/wiki/Proof_of_stake",
+    "https://en.wikipedia.org/wiki/Proof_of_work",
+    "https://en.wikipedia.org/wiki/List_of_cryptocurrencies",
+    "https://en.wikipedia.org/wiki/Cryptocurrency_wallet",
+    "https://en.wikipedia.org/wiki/Solana_(blockchain_platform)",
+    "https://en.wikipedia.org/wiki/MEV",
+    "https://en.wikipedia.org/wiki/CoinDesk",
+    "https://en.wikipedia.org/wiki/Technical_analysis",
+    "https://en.wikipedia.org/wiki/Candlestick_chart",
+    "https://en.wikipedia.org/wiki/Moving_average",
+    "https://en.wikipedia.org/wiki/Relative_strength_index",
+    "https://en.wikipedia.org/wiki/MACD",
+    "https://en.wikipedia.org/wiki/Market_trend",
+    "https://en.wikipedia.org/wiki/Support_and_resistance",
+    "https://en.wikipedia.org/wiki/Market_liquidity",
+    "https://news.google.com/search?q=web3&hl=en-US&gl=US&ceid=US:en",
+    "https://news.google.com/search?q=cryptocurrency+news&hl=en-US&gl=US&ceid=US:en",
+    "https://news.google.com/search?q=bitcoin+technical+analysis&hl=en-US&gl=US&ceid=US:en",
+    "https://news.google.com/search?q=ethereum+decentralized+finance&hl=en-US&gl=US&ceid=US:en",
+    "https://news.google.com/search?q=crypto+trading+analysis&hl=en-US&gl=US&ceid=US:en",
+    "https://www.coindesk.com/markets",
+    "https://www.coindesk.com/",
+    "https://cointelegraph.com/",
+    "https://cointelegraph.com/tags/markets",
+    "https://decrypt.co/?lang=en",
+    "https://www.coingecko.com/en",
+    "https://www.coingecko.com/en/news",
+    "https://coinmarketcap.com/",
+    "https://coinmarketcap.com/academy",
+    "https://cryptoslate.com/",
+    "https://thedefiant.io/",
+    "https://blockworks.com/",
+    "https://www.tradingview.com/markets/cryptocurrencies/news/",
+    "https://www.tradingview.com/markets/cryptocurrencies/ideas/",
+    # the launchpad, left as it was
     "https://www.ponsfamily.com/launchpad/explore",
     "https://www.ponsfamily.com/launchpad/0x4eb990547bce4a982432ca88cf5fae7eed1a2d35",
-    "https://robinhoodchain.blockscout.com/txs",
 ]
 
-# Hacker News and arXiv were seeds and had to go. Both are link dead ends
-# behind a fence: almost every link on them points at a domain that is not
-# allowed, so a click there goes nowhere, the budget expires and the fly is
-# bounced back to a seed. They looked like rich pages and were traps.
+# Hacker News, arXiv, Gutenberg, Open Library and xkcd were seeds and had to
+# go. The first two are link dead ends behind a fence: almost every link on
+# them points at a domain that is not allowed. The rest are not about the
+# coin. A click there goes nowhere, the budget expires and the fly is bounced
+# back to a seed.
 
 
 # Checked against every URL the browser tries to commit to.
@@ -105,14 +151,23 @@ BLOCK = re.compile(
 # Wikipedia alone is millions of pages that link everywhere, so this is still a
 # real roam; it is just a roam with a fence.
 ALLOW = {
-    "en.wikipedia.org", "en.m.wikipedia.org", "commons.wikimedia.org",
-    "en.wikisource.org", "en.wikiquote.org", "en.wikibooks.org",
-    "www.wikidata.org", "species.wikimedia.org",
-    "news.ycombinator.com",
-    "www.gutenberg.org", "gutenberg.org",
-    "openlibrary.org",
-    "xkcd.com", "www.xkcd.com",
-    "arxiv.org", "www.arxiv.org",
+    # English Wikipedia, including the mobile host articles redirect to.
+    "en.wikipedia.org", "en.m.wikipedia.org",
+    # English Google News. www.google.com is deliberately absent: search is
+    # an unusual-traffic wall in a headless browser, and a click from News
+    # only sticks when the publisher below is also on this list.
+    "news.google.com",
+    "www.coindesk.com", "coindesk.com",
+    "cointelegraph.com", "www.cointelegraph.com",
+    "decrypt.co", "www.decrypt.co",
+    "www.coingecko.com", "coingecko.com",
+    "coinmarketcap.com", "www.coinmarketcap.com",
+    "cryptoslate.com", "www.cryptoslate.com",
+    "thedefiant.io", "www.thedefiant.io",
+    "blockworks.com", "www.blockworks.com",
+    "www.tradingview.com", "tradingview.com",
+    # pons is the launchpad. Blockscout is not a seed anymore, but a click
+    # from the launchpad to the chain explorer should still land.
     "www.ponsfamily.com", "ponsfamily.com",
     "robinhoodchain.blockscout.com",
 }
