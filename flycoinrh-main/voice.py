@@ -111,10 +111,18 @@ ALLOWLIST = [
 # Hosts the fly's own wanderings may be read from. Anything else it landed on
 # is still in the telemetry as a title, just not fetched.
 READABLE_HOSTS = {
-    "en.wikipedia.org", "en.m.wikipedia.org", "commons.wikimedia.org",
-    "en.wikisource.org", "en.wikiquote.org", "en.wikibooks.org",
-    "www.gutenberg.org", "gutenberg.org", "openlibrary.org", "xkcd.com",
-    "www.xkcd.com", "arxiv.org", "www.ponsfamily.com", "ponsfamily.com",
+    "en.wikipedia.org", "en.m.wikipedia.org",
+    "news.google.com",
+    "www.coindesk.com", "coindesk.com",
+    "cointelegraph.com", "www.cointelegraph.com",
+    "decrypt.co", "www.decrypt.co",
+    "www.coingecko.com", "coingecko.com",
+    "coinmarketcap.com", "www.coinmarketcap.com",
+    "cryptoslate.com", "www.cryptoslate.com",
+    "thedefiant.io", "www.thedefiant.io",
+    "blockworks.com", "www.blockworks.com",
+    "www.tradingview.com", "tradingview.com",
+    "www.ponsfamily.com", "ponsfamily.com",
     "robinhoodchain.blockscout.com", "flybrain.online",
 }
 

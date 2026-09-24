@@ -235,23 +235,29 @@ parts that are real.
 
 ### Where it roams, and where it does not
 
-The open web, plus the chain it launched its own token on: Wikipedia,
-Wikimedia Commons, Wikisource, Hacker News, Project Gutenberg, Open Library,
-xkcd, arXiv — and the pons launchpad, Blockscout, and the fly's own token page.
+English pages about web3, crypto news and trading analysis, plus the chain it
+launched its own token on. Seeds are English Wikipedia articles (Web3,
+Bitcoin, Ethereum, DeFi, technical analysis and the chart pages those
+articles describe), English Google News queries for the same subjects, and
+the English outlets those searches surface: CoinDesk, Cointelegraph, Decrypt,
+CoinGecko, CoinMarketCap, CryptoSlate, The Defiant, Blockworks and
+TradingView. The pons launchpad and the fly's own token page are unchanged.
+Blockscout is no longer a seed, and stays on the fence so a click from pons
+to the explorer still lands.
 
 Four places were tried and dropped, all for the same reason: a real browser
 gets nothing usable from them.
 
 | tried | what a headless browser actually gets |
 |---|---|
-| Google | 335 chars behind an "unusual traffic" wall |
+| Google search (`www.google.com/search`) | 335 chars behind an "unusual traffic" wall |
 | X | 623 chars of "Continue with phone" |
 | old.reddit | blocked outright |
 | archive.org | 0 chars — paints nothing headless, even at `networkidle` |
 
-Open Library stands in for the Internet Archive, since it renders. The list is
-what it is because a retina needs a page that exists, not because those sites
-were uninteresting.
+`www.google.com/search` stays off the list for that reason. The Google seeds
+are `news.google.com` queries with `hl=en-US`. The list is English and about
+the coin on purpose, and a retina still needs a page that paints.
 
 Keeping it on two domains was tried too, and the failure was quieter: 93 pages
 and 110 clicks in 49 minutes across **6 unique pages**. It was moving the whole
