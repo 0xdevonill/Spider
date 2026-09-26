@@ -722,11 +722,12 @@ draw();
 /* ---------------------------------------------------------------------------
    Live state, read in your browser.
 
-   The public Solana node answers CORS, so this page talks to the chain
-   directly when the same-origin proxy is missing. Open devtools and watch
-   getAccountInfo go out. The mint address is case-sensitive.
+   The same-origin proxy is preferred. If it is missing, the page reads
+   Solana directly. The public mainnet endpoint refuses browser origins, so
+   this fallback uses a node that allows them. The mint address is
+   case-sensitive.
 --------------------------------------------------------------------------- */
-const RPC     = 'https://api.mainnet-beta.solana.com';
+const RPC     = 'https://solana-rpc.publicnode.com';
 const TOKEN   = 'H9Q6v2VGf6t28M46gfdChxNr1JPMhQHVB6C3xb7FAouc';
 const SCAN    = 'https://solscan.io/token/';
 
