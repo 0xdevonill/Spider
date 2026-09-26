@@ -1,25 +1,20 @@
-// Same-origin proxy to the Robinhood Chain node.
+// Same-origin proxy to Solana mainnet.
 //
-// The public node's CORS is unreliable: it intermittently answers
-// "Access-Control-Allow-Origin: *,*" - a duplicated header that every browser
-// rejects - so reading the chain straight from the page showed "offline" at
-// random. This runs server-side, where CORS does not apply, and the page then
-// talks only to its own origin.
+// The page prefers this over calling the public node itself. It reads. There
+// is no key here and no method that writes. The mint address is base58 and
+// case-sensitive, so it is never lowercased.
 //
-// It reads. There is no key here and no method in the allowlist that writes.
+// Pair and creator tax stay as they were. Only the contract and the network
+// changed.
 
-const RPC = process.env.FLY_RH_RPC || 'https://rpc.mainnet.chain.robinhood.com';
-const TOKEN = (process.env.FLY_TOKEN || '0x4eb990547bce4a982432ca88cf5fae7eed1a2d35').toLowerCase();
+const SOL_RPC = process.env.FLY_SOL_RPC || 'https://api.mainnet-beta.solana.com';
+const RH_RPC = process.env.FLY_RH_RPC || 'https://rpc.mainnet.chain.robinhood.com';
+const TOKEN = process.env.FLY_TOKEN || 'H9Q6v2VGf6t28M46gfdChxNr1JPMhQHVB6C3xb7FAouc';
 const WALLET = process.env.FLY_WALLET || '0x6ce4085EfB52a6eBDb7d6989beb8860847f4b42A';
-const BIRTH = process.env.FLY_TOKEN_BLOCK || '0x38DA606';
-const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
 const FEE_ETH = 0.00055;
 
-let holdersCache = { at: 0, holders: null, transfers: null };
-const HOLD_TTL = 120000;
-
-async function rpc(method, params) {
-  const r = await fetch(RPC, {
+async function rpc(url, method, params) {
+  const r = await fetch(url, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
@@ -29,53 +24,40 @@ async function rpc(method, params) {
   return j.result;
 }
 
-const int = (h) => (h ? parseInt(h, 16) : 0);
-
-function abiString(x) {
-  if (!x || x.length < 130) return '';
-  const n = parseInt(x.slice(66, 130), 16);
-  let out = '';
-  for (let i = 0; i < n; i++) out += String.fromCharCode(parseInt(x.substr(130 + i * 2, 2), 16));
-  return out;
-}
-
-async function holders() {
-  const now = Date.now();
-  if (holdersCache.holders != null && now - holdersCache.at < HOLD_TTL) return holdersCache;
-  try {
-    const logs = await rpc('eth_getLogs', [{
-      address: TOKEN, fromBlock: BIRTH, toBlock: 'latest', topics: [TRANSFER],
-    }]);
-    const seen = new Set();
-    for (const l of logs) if (l.topics.length >= 3) seen.add('0x' + l.topics[2].slice(-40));
-    seen.delete('0x' + '0'.repeat(40));
-    holdersCache = { at: now, holders: seen.size, transfers: logs.length };
-  } catch (e) { /* keep the last good numbers */ }
-  return holdersCache;
+function mintFacts(info) {
+  const parsed = info && info.value && info.value.data && info.value.data.parsed;
+  const inf = (parsed && parsed.info) || {};
+  const ext = inf.extensions || [];
+  let symbol = '';
+  for (const e of ext) {
+    if (e.extension === 'tokenMetadata' && e.state && e.state.symbol) symbol = e.state.symbol;
+  }
+  const decimals = inf.decimals == null ? 6 : inf.decimals;
+  const supply = inf.supply == null ? null : Number(inf.supply) / 10 ** decimals;
+  return { symbol, supply };
 }
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate=60');
   try {
-    const [blk, sup, sym, bal] = await Promise.all([
-      rpc('eth_blockNumber', []),
-      rpc('eth_call', [{ to: TOKEN, data: '0x18160ddd' }, 'latest']),
-      rpc('eth_call', [{ to: TOKEN, data: '0x95d89b41' }, 'latest']),
-      rpc('eth_getBalance', [WALLET, 'latest']),
+    const [slot, info, bal] = await Promise.all([
+      rpc(SOL_RPC, 'getSlot', []),
+      rpc(SOL_RPC, 'getAccountInfo', [TOKEN, { encoding: 'jsonParsed' }]),
+      rpc(RH_RPC, 'eth_getBalance', [WALLET, 'latest']).catch(() => null),
     ]);
-    const h = await holders();
-    const eth = int(bal) / 1e18;
+    const f = mintFacts(info);
+    const eth = bal ? parseInt(bal, 16) / 1e18 : null;
     res.status(200).json({
       ok: true,
-      block: int(blk),
+      block: slot,
       budget_eth: eth,
-      launches_left: Math.floor(eth / FEE_ETH),
+      launches_left: eth == null ? null : Math.floor(eth / FEE_ETH),
       token: {
         address: TOKEN,
-        symbol: abiString(sym),
-        supply: Number(BigInt(sup)) / 1e18,
-        holders: h.holders,
-        transfers: h.transfers,
+        symbol: f.symbol || 'SPIDER',
+        supply: f.supply,
+        holders: null,
+        transfers: null,
         pair: 'GOOGL',
         creator_tax_pct: 1,
       },

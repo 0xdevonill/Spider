@@ -350,7 +350,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
 <div class="plate">
   <canvas id="spider" aria-label="A spider drawn as a cloud of points"></canvas>
   <div class="corner tl">specimen<br><span style="color:var(--ink-dim)">spider CNS v1.0</span></div>
-  <div class="corner tr">Robinhood Chain<br><span id="blk" style="color:var(--ink-dim)">block —</span></div>
+  <div class="corner tr">Solana<br><span id="blk" style="color:var(--ink-dim)">block —</span></div>
   <div class="corner bl">165,122 neurons<br><span style="color:var(--ink-dim)">10,228,000 connections</span></div>
   <div class="corner br"><span class="tick" id="livedot">●</span> observed live<br><span id="upd" style="color:var(--ink-dim)">—</span></div>
   <div class="title">
@@ -467,7 +467,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
   <div class="wrap cain">
     <div>
       <div class="calabel">Contract address &middot; $SPIDER</div>
-      <div class="caval" id="ca-text">&mdash;</div>
+      <div class="caval" id="ca-text">H9Q6v2VGf6t28M46gfdChxNr1JPMhQHVB6C3xb7FAouc</div>
     </div>
     <button class="copy" id="ca-copy" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
@@ -527,15 +527,15 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
   <div class="wrap">
     <div class="eyebrow">on-chain</div>
     <h2>$SPIDER</h2>
-    <p class="lede">Launched by the spider, from the spider's own wallet, on Robinhood Chain. Read the receipt yourself rather than taking this page's word for it.</p>
+    <p class="lede">Launched by the spider, from the spider's own wallet, on Solana. Read the receipt yourself rather than taking this page's word for it.</p>
     <div class="scroll"><table>
-      <tr><th>Contract</th><td class="addr" id="t-ca">—</td></tr>
+      <tr><th>Contract</th><td class="addr" id="t-ca">H9Q6v2VGf6t28M46gfdChxNr1JPMhQHVB6C3xb7FAouc</td></tr>
       <tr><th>Paired</th><td class="num" id="t-pair">—</td></tr>
       <tr><th>Creator tax</th><td class="num" id="t-tax">—</td></tr>
       <tr><th>Supply</th><td class="num" id="t-sup">—</td></tr>
-      <tr><th>Chain</th><td class="num">Robinhood Chain · id 4663</td></tr>
+      <tr><th>Chain</th><td class="num">Solana</td></tr>
     </table></div>
-    <p style="margin-top:22px"><a id="t-link" href="https://www.ponsfamily.com/launchpad">open on the launchpad</a></p>
+    <p style="margin-top:22px"><a id="t-link" href="https://solscan.io/token/H9Q6v2VGf6t28M46gfdChxNr1JPMhQHVB6C3xb7FAouc">open on the launchpad</a></p>
   </div>
 </section>
 
@@ -558,7 +558,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px}
   <div class="wrap">
     <div class="links">
       <a href="https://github.com/0xdevonill/Spider">source</a>
-      <a id="f-scan" href="https://robinhoodchain.blockscout.com">explorer</a>
+      <a id="f-scan" href="https://solscan.io/token/H9Q6v2VGf6t28M46gfdChxNr1JPMhQHVB6C3xb7FAouc">explorer</a>
     </div>
     <div><span class="pill"><span class="pip" id="pip"></span><span id="pip-t">reading the chain</span></span></div>
     <p style="margin-top:22px;max-width:66ch">Connectome data &copy; HHMI Janelia FlyEM, the Cambridge Connectomics Group and Google Research, released CC-BY. Simulation after Shiu et&nbsp;al. 2024 and Lappalainen et&nbsp;al. 2024. Not affiliated with any of them, nor with pons or Robinhood. $SPIDER is an art experiment, not an investment.</p>
@@ -722,18 +722,13 @@ draw();
 /* ---------------------------------------------------------------------------
    Live state, read in your browser.
 
-   The public Robinhood Chain node answers CORS, so this page talks to the
-   chain directly - there is no server of ours between you and the data. Open
-   devtools and watch the eth_call go out. The holder count is derived from
-   Transfer logs rather than an indexer, which takes about a second and a half
-   and is a count of addresses that have ever received the token, not of
-   current holders.
+   The public Solana node answers CORS, so this page talks to the chain
+   directly when the same-origin proxy is missing. Open devtools and watch
+   getAccountInfo go out. The mint address is case-sensitive.
 --------------------------------------------------------------------------- */
-const RPC     = 'https://rpc.mainnet.chain.robinhood.com';
-const TOKEN   = '0x4eb990547bce4a982432ca88cf5fae7eed1a2d35';
-const BIRTH   = '0x38DA606';        // the block the token launched in
-const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
-const FEE_ETH = 0.00055;
+const RPC     = 'https://api.mainnet-beta.solana.com';
+const TOKEN   = 'H9Q6v2VGf6t28M46gfdChxNr1JPMhQHVB6C3xb7FAouc';
+const SCAN    = 'https://solscan.io/token/';
 
 const $ = id => document.getElementById(id);
 const nf = (v, d=0) => v==null ? '—' : Number(v).toLocaleString(undefined,
@@ -747,13 +742,17 @@ async function rpc(method, params){
   if (j.error) throw new Error(j.error.message || 'rpc error');
   return j.result;
 }
-const int = h => h ? parseInt(h, 16) : 0;
-function abiString(x){
-  if (!x || x.length < 130) return '';
-  const n = parseInt(x.slice(66,130), 16);
-  let out = '';
-  for (let i=0;i<n;i++) out += String.fromCharCode(parseInt(x.substr(130+i*2,2),16));
-  return out;
+function mintFacts(info){
+  const parsed = info && info.value && info.value.data && info.value.data.parsed;
+  const inf = (parsed && parsed.info) || {};
+  const ext = inf.extensions || [];
+  let symbol = '';
+  for (const e of ext) {
+    if (e.extension === 'tokenMetadata' && e.state && e.state.symbol) symbol = e.state.symbol;
+  }
+  const decimals = inf.decimals == null ? 6 : inf.decimals;
+  const supply = inf.supply == null ? null : Number(inf.supply) / Math.pow(10, decimals);
+  return {symbol, supply};
 }
 
 function render(d){
@@ -761,15 +760,16 @@ function render(d){
   const t = (d && d.token) || {};
   if (t.address) {
     $('t-ca').textContent = t.address;
-    $('t-link').href = 'https://www.ponsfamily.com/launchpad/' + t.address;
-    $('f-scan').href = 'https://robinhoodchain.blockscout.com/token/' + t.address;
+    $('ca-text').textContent = t.address;
+    $('t-link').href = SCAN + t.address;
+    $('f-scan').href = SCAN + t.address;
   }
   if (t.pair) $('t-pair').textContent = t.pair;
   if (t.creator_tax_pct != null) $('t-tax').textContent = Number(t.creator_tax_pct).toFixed(2) + ' %';
   if (t.supply != null) $('t-sup').textContent = nf(t.supply) + (t.symbol ? ' ' + t.symbol : '');
   $('upd').textContent = new Date().toISOString().slice(11,19) + ' UTC';
   $('pip').classList.remove('stale');
-  $('pip-t').textContent = 'read from Robinhood Chain';
+  $('pip-t').textContent = 'read from Solana';
 }
 
 /* The proxy first, because the public node's CORS header is intermittently
@@ -782,15 +782,14 @@ async function readChain(){
     if (d && d.ok) { render(d); return; }
   } catch (e) { /* fall through */ }
 
-  // token facts only - the spider's wallet address lives in the proxy, not here
-  const [blk, sup, sym] = await Promise.all([
-    rpc('eth_blockNumber', []),
-    rpc('eth_call', [{to:TOKEN, data:'0x18160ddd'}, 'latest']),
-    rpc('eth_call', [{to:TOKEN, data:'0x95d89b41'}, 'latest']),
+  const [slot, info] = await Promise.all([
+    rpc('getSlot', []),
+    rpc('getAccountInfo', [TOKEN, {encoding:'jsonParsed'}]),
   ]);
-  render({block:int(blk), budget_eth:null,
-          token:{address:TOKEN, symbol:abiString(sym),
-                 supply:Number(BigInt(sup))/1e18, holders:null,
+  const f = mintFacts(info);
+  render({block:slot,
+          token:{address:TOKEN, symbol:f.symbol || 'SPIDER',
+                 supply:f.supply, holders:null,
                  transfers:null, pair:'GOOGL', creator_tax_pct:1}});
 }
 
